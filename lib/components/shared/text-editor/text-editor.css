@@ -1,0 +1,56 @@
+.fr-floating-btn {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary) !important;
+    background: var(--background) !important;
+}
+
+.fr-svg {
+    fill: var(--primary) !important;
+    color: var(--primary) !important;
+}
+
+.fr-svg path {
+    fill: var(--primary) !important;
+}
+
+.fr-command.fr-btn:hover {
+    background: var(--background) !important;
+}
+
+/* .fr-command.fr-btn:hover .fr-svg path {
+    fill: var(--) !important;
+} */
+
+.fr-toolbar .fr-command.fr-btn.fr-dropdown.fr-active:hover, .fr-popup .fr-command.fr-btn.fr-dropdown.fr-active:hover, .fr-modal .fr-command.fr-btn.fr-dropdown.fr-active:hover {
+    background: var(--foreground) !important;
+    fill: var(--primary) !important;
+}
+
+.fr-toolbar .fr-command.fr-btn.fr-dropdown.fr-active:hover::after, .fr-popup .fr-command.fr-btn.fr-dropdown.fr-active:hover::after, .fr-modal .fr-command.fr-btn.fr-dropdown.fr-active:hover::after{
+    /* border-color: var(--primary) !important; */
+    border-bottom-color: var(--primary) !important;
+}
+
+.fr-toolbar .fr-command.fr-btn.fr-dropdown:after, .fr-popup .fr-command.fr-btn.fr-dropdown:after, .fr-modal .fr-command.fr-btn.fr-dropdown:after{
+    border-top-color: var(--primary) !important;
+}
+
+.fr-command.fr-btn.fr-dropdown.fr-options:hover .fr-desktop .fr-command:hover:not(.fr-table-cell), .fr-desktop .fr-command:focus:not(.fr-table-cell), .fr-desktop .fr-command.fr-btn-hover:not(.fr-table-cell), .fr-desktop .fr-command.fr-expanded:not(.fr-table-cell){
+    background: var(--foreground) !important;
+}
+
+.fr-element.fr-view {
+    background: var(--background) !important;
+    color: var(--primary) !important;
+}
+
+.fr-toolbar.fr-desktop.fr-top.fr-basic.fr-sticky-off {
+    background: var(--foreground) !important;
+}
+
+.fr-second-toolbar{
+    background: var(--foreground) !important;
+    color: var(--primary) !important;
+}
