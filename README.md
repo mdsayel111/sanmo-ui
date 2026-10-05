@@ -32,8 +32,10 @@ yarn add sanmo-ui
 Ensure these are installed:
 
 ```bash
-npm install react react-dom react-router-dom
+npm install react react-dom
 ```
+
+`sanmo-ui` does not require a routing library. The layout uses regular links by default; pass your framework's link component through `LinkComponent` when you want client-side navigation.
 
 ---
 
@@ -47,37 +49,71 @@ import "sanmo-ui/style.css";
 
 ---
 
-## 2. Use RootLayout in (App.jsx)
+## 2. Use RootLayout
 
 ```tsx
-import {
-  createBrowserRouter,
-  Outlet,
-  RouterProvider,
-} from "react-router-dom";
-import { RootLayout } from 'sanmo-ui'
+import { RootLayout } from "sanmo-ui";
 import "sanmo-ui/style.css"
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootLayout>
-      <Outlet />
-    </RootLayout>
-    ,
-    children: [
-      {
-        index: true,
-        element: <h1>home</h1>,
-      }
-    ],
-  },
-]);
-
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <RootLayout
+      logoSrc="/logo.svg"
+      profileImageSrc="/profile.jpg"
+      navItems={[{ name: "Home", href: "/" }]}
+    >
+      <h1>Home</h1>
+    </RootLayout>
+  );
 }
 ```
+
+For Inertia, pass its `Link` component and the current URL:
+
+```tsx
+import { Link, usePage } from "@inertiajs/react";
+
+export default function App() {
+  const { url } = usePage();
+
+  return (
+    <RootLayout
+      logoSrc="/logo.svg"
+      navItems={[{ name: "Home", href: "/" }]}
+      LinkComponent={Link}
+      currentPath={url}
+    >
+      <h1>Home</h1>
+    </RootLayout>
+  );
+}
+```
+
+For Next.js App Router, provide its `Link` component and `usePathname()` value from a client component:
+
+```tsx
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+export default function App() {
+  const pathname = usePathname();
+
+  return (
+    <RootLayout
+      logoSrc="/logo.svg"
+      navItems={[{ name: "Home", href: "/" }]}
+      LinkComponent={Link}
+      currentPath={pathname}
+    >
+      <h1>Home</h1>
+    </RootLayout>
+  );
+}
+```
+
+Breadcrumbs also accept an optional `LinkComponent` prop.
 
 ```tsx
 import { Button } from "sanmo-ui";

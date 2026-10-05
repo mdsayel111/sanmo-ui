@@ -13,11 +13,20 @@ interface SidebarProps {
     setSidebarOpen: (value: boolean) => void;
     logoSrc?: string;
     navItems: SidebarNavItem[];
+    LinkComponent?: React.ElementType;
+    currentPath?: string;
 }
 
 
 
-export default function Sidebar({ sidebarOpen, setSidebarOpen, logoSrc = logo, navItems = [] }: SidebarProps) {
+export default function Sidebar({
+    sidebarOpen,
+    setSidebarOpen,
+    logoSrc = logo,
+    navItems = [],
+    LinkComponent,
+    currentPath,
+}: SidebarProps) {
     const [expandedMenus, setExpandedMenus] = useState<string>("");
 
     return (
@@ -42,7 +51,14 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, logoSrc = logo, n
                     {/* Scrollable Menu Area */}
                     <div className={`flex-1 px-3 overflow-x-hidden overflow-y-auto py-4 scrollbar-thin scrollbar-thumb-slate-600 space-y-1`}>
                         {navItems.map((item, i) => (
-                            <SidebarItem key={i} item={item} expandedMenus={expandedMenus} setExpandedMenus={setExpandedMenus} />
+                            <SidebarItem
+                                key={i}
+                                item={item}
+                                expandedMenus={expandedMenus}
+                                setExpandedMenus={setExpandedMenus}
+                                LinkComponent={LinkComponent}
+                                currentPath={currentPath}
+                            />
                         ))}
                     </div>
                 </div>

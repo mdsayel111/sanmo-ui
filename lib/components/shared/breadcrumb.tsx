@@ -1,6 +1,5 @@
 import { ChevronRight, Home } from 'lucide-react';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 
 export interface BreadcrumbItemType {
@@ -15,13 +14,15 @@ export interface BreadcrumbProps {
     separator?: React.ReactNode | string;
     className?: string;
     showHomeIcon?: boolean;
+    LinkComponent?: React.ElementType;
 }
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({
     items,
     separator = <ChevronRight size={16} />,
     className = '',
-    showHomeIcon = false
+    showHomeIcon = false,
+    LinkComponent = 'a'
 }) => {
 
     // Base classes for the nav container
@@ -71,13 +72,13 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({
                                     {item.label}
                                 </span>
                             ) : (
-                                <Link
-                                    to={item.href || '#'}
+                                <LinkComponent
+                                    href={item.href || '#'}
                                     className={`${linkBaseClasses} ${inactiveClasses}`}
                                 >
                                     {item.icon && <span className="mr-2">{item.icon}</span>}
                                     {item.label}
-                                </Link>
+                                </LinkComponent>
                             )}
                         </li>
                     );

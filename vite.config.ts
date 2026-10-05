@@ -21,12 +21,12 @@ export default defineConfig(({ mode }) => {
           fileName: (format) => `index.${format}.js`,
         },
         rollupOptions: {
-          external: ["react", "react-dom", "react-router-dom"],
+          external: ["react", "react-dom"],
           output: {
+            banner: '"use client";',
             globals: {
               react: "React",
               "react-dom": "ReactDOM",
-              "react-router-dom": "ReactRouterDOM",
             },
           },
         },
@@ -42,4 +42,3 @@ export default defineConfig(({ mode }) => {
       },
   };
 });
-

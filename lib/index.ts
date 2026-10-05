@@ -1,6 +1,7 @@
 import '../src/index.css'
 
 export { default as RootLayout } from './components/layouts/layout/layout'
+export type { LayoutProps } from './components/layouts/layout/layout'
 
 // button exports
 export { default as Button } from './components/shared/button'
