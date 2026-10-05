@@ -2,7 +2,7 @@ import Dropdown from '../../../../../shared/dropdown/dropdown'
 import DropdownContent from '../../../../../shared/dropdown/dropdown-content'
 import DropdownPlaceholder from '../../../../../shared/dropdown/dropdown-placeholder'
 
-export default function ProfileDropdown({ children }: { children: React.ReactNode }) {
+export default function ProfileDropdown({ children, profileImageSrc }: { children: React.ReactNode; profileImageSrc: string }) {
     return (
         <div className="flex items-center gap-3 pl-2 h-full">
             <Dropdown
@@ -11,7 +11,7 @@ export default function ProfileDropdown({ children }: { children: React.ReactNod
             >
                 <DropdownPlaceholder>
                     <img
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={profileImageSrc}
                         alt="Profile"
                         className="w-8 h-8 rounded-full object-cover border border-slate-200 shadow-sm cursor-pointer"
                     />

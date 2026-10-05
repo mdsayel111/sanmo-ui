@@ -6,6 +6,7 @@ import Header from './components/header/header';
 interface LayoutProps {
     children: React.ReactNode;
     logoSrc: string;
+    profileImageSrc: string;
     navItems: SidebarNavItem[];
     notificationsDropdownContents?: React.ReactNode;
     settingsModalContents?: React.ReactNode;
@@ -17,6 +18,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({
     children,
+    profileImageSrc,
     logoSrc,
     navItems,
     notificationsDropdownContents,
@@ -38,6 +40,7 @@ const Layout: React.FC<LayoutProps> = ({
                     profileDropdownContents={profileDropdownContents}
                     searchDropdownContents={searchDropdownContents}
                     handleSearch={handleSearch}
+                    profileImageSrc={profileImageSrc}
                 />
                 <main className="flex-1 overflow-auto py-6 px-4 lg:px-[30px]">
                     {children}

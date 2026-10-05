@@ -11,6 +11,7 @@ import SearchDropdown from './components/search-dropdown';
 
 interface HeaderProps {
     sidebarOpen: boolean;
+    profileImageSrc: string;
     setSidebarOpen: (value: boolean) => void;
     notificationsDropdownContents?: React.ReactNode;
     profileDropdownContents?: React.ReactNode;
@@ -25,6 +26,7 @@ export default function Header({
     profileDropdownContents,
     searchDropdownContents,
     handleSearch,
+    profileImageSrc,
 }: HeaderProps) {
     const [theme, setTheme] = useState(
         localStorage.getItem("theme") || "light"
@@ -70,7 +72,9 @@ export default function Header({
                     </NotificationDropdown>
                 }
                 {
-                    profileDropdownContents && <ProfileDropdown>
+                    profileDropdownContents && <ProfileDropdown
+                        profileImageSrc={profileImageSrc}
+                    >
                         {profileDropdownContents}
                     </ProfileDropdown>
                 }

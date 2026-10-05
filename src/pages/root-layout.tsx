@@ -26,7 +26,34 @@ const router = createBrowserRouter([
     path: "/",
     element: (
         <RootLayout
-          navItems={navItems}
+          navItems={[
+              {
+                  category: "Apps",
+              },
+              {
+                  name: 'Installation',
+                  href: '/',
+                  icon: MonitorStopIcon,
+              },
+              {
+                  name: 'Authentication',
+                  icon: LockKeyholeIcon,
+                  children: [
+                      {
+                          name: 'Sign In',
+                          href: '/signin',
+                      },
+                      {
+                          name: 'Sign Up',
+                          href: '/signup',
+                      },
+                      {
+                          name: 'Reset Password',
+                          href: '/reset-password',
+                      },
+                  ],
+              },
+          ]}
           logoSrc={"your_logo_path"}
           notificationsDropdownContents={
               <NotificationDropdownContents   // NotificationDropdownContents is a component defined in sanmo-ui, you can use your own component
