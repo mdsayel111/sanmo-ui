@@ -53,6 +53,7 @@ export type { ToastPosition } from './components/shared/toast/types'
 
 // export input
 export { default as Input } from './components/shared/input/input'
+export { default as SearchInput } from './components/shared/input/search-input'
 export { default as ImageInput } from './components/shared/input/image-input'
 export type { ImageInputValue } from './components/shared/input/image-input'
 export { default as Textarea } from './components/shared/input/text-area'

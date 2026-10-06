@@ -1,11 +1,14 @@
 import { Eye, EyeOff } from "lucide-react";
+import { ReactNode } from "react";
 import { useState } from "react";
 import { InputSize } from "./types";
+import { cn } from "../../utils/cn";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
     inputSize?: InputSize;
     plaintext?: boolean;
+    leadingIcon?: ReactNode;
 }
 
 const Input = ({
@@ -13,6 +16,7 @@ const Input = ({
     className = '',
     inputSize = 'default',
     plaintext = false,
+    leadingIcon,
     type = 'text',
     ...props
 }: InputProps) => {
@@ -34,14 +38,19 @@ const Input = ({
       `;
 
     return (
-        <div className="w-full">
+        <div className={cn("w-full", className)}>
             {label && <label className="block text-sm text-gray-900 dark:text-slate-400 mb-1.5">{label}</label>}
             <div className="relative">
                 <input
                     type={isPassword && showPassword ? 'text' : type}
-                    className={`${baseClasses} ${!plaintext ? sizeClasses : ''} ${className}`}
+                    className={`${baseClasses} ${!plaintext ? sizeClasses : ''} ${leadingIcon ? 'pl-10' : ''}`}
                     {...props}
                 />
+                {leadingIcon && (
+                    <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
+                        {leadingIcon}
+                    </span>
+                )}
                 {isPassword && !props.disabled && !props.readOnly && (
                     <button
                         type="button"

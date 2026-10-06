@@ -1,4 +1,6 @@
 import Input from '../../lib/components/shared/input/input';
+import SearchInput from '../../lib/components/shared/input/search-input';
+import { useState } from 'react';
 import Select from '../../lib/components/shared/input/select/select';
 import Textarea from '../../lib/components/shared/input/text-area';
 import Container from '../components/shared/container';
@@ -6,6 +8,8 @@ import Section from '../components/shared/section';
 import SourceCode from '../components/shared/source-code';
 
 export default function Inputs() {
+  const [search, setSearch] = useState('');
+
   return (
     <Container
       title="Input"
@@ -26,6 +30,30 @@ export default function Inputs() {
 <Input label="Email" type="email" placeholder="Email" />
 <Input label="Password" type="password" placeholder="password" />
 <Textarea label="Text area" />`} />
+      </Section>
+
+      {/* Search Input */}
+      <Section title="Search Input" description="A search field with an icon and controlled value.">
+        <div className="max-w-md">
+          <SearchInput
+            label="Search"
+            placeholder="Search..."
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+        </div>
+
+        <SourceCode code={`import { useState } from 'react';
+import { SearchInput } from 'sanmo-ui';
+
+const [search, setSearch] = useState('');
+
+<SearchInput
+  label="Search"
+  placeholder="Search..."
+  value={search}
+  onChange={(event) => setSearch(event.target.value)}
+/>`} />
       </Section>
 
       {/* 2. Sizing */}

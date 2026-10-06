@@ -37,8 +37,8 @@ export const Thead = ({ children, className = '' }: { children: ReactNode, class
     </thead>
 );
 
-export const Tbody = ({ children }: { children: ReactNode }) => (
-    <tbody className="divide-y divide-slate-200 dark:divide-slate-700/50 text-gray-600 dark:text-gray-400">
+export const Tbody = ({ children, className = '' }: { children: ReactNode, className?: string }) => (
+    <tbody className={cn("divide-y divide-slate-200 dark:divide-slate-700/50 text-gray-600 dark:text-gray-400", className)}>
         {children}
     </tbody>
 );
