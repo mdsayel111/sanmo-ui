@@ -39,8 +39,10 @@ body {
 
 }
 
-* {
-    border-color: var(--border-color);
+@layer base {
+    * {
+        border-color: var(--border-color);
+    }
 }
 
 /* scrollbar styles */

@@ -60,59 +60,59 @@ const Button: React.FC<ButtonProps> = ({
         > = {
             primary: {
                 solid:
-                    "bg-secondary/80 hover:bg-secondary text-white border border-transparent",
+                    "bg-secondary/80 hover:bg-secondary text-white border border-secondary/80",
                 outline:
                     "bg-transparent border border-secondary/80 text-secondary hover:bg-secondary hover:text-white",
-                soft: "bg-secondary/10 text-secondary hover:bg-secondary/20 border border-transparent",
+                soft: "bg-secondary/10 text-secondary hover:bg-secondary/20 border border-secondary/30",
             },
             secondary: {
                 solid:
-                    "bg-slate-600 hover:bg-slate-700 text-white border border-transparent",
+                    "bg-slate-600 hover:bg-slate-700 text-white border border-slate-600",
                 outline:
                     "bg-transparent border border-slate-500 text-slate-400 hover:bg-slate-500 hover:text-white",
-                soft: "bg-slate-500/10 text-slate-400 hover:bg-slate-500/20 border border-transparent",
+                soft: "bg-slate-500/10 text-slate-400 hover:bg-slate-500/20 border border-slate-500/30",
             },
             success: {
                 solid:
-                    "bg-emerald-500 hover:bg-emerald-600 text-white border border-transparent",
+                    "bg-emerald-500 hover:bg-emerald-600 text-white border border-emerald-500",
                 outline:
                     "bg-transparent border border-emerald-500 text-emerald-500 hover:bg-emerald-500 hover:text-white",
-                soft: "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20 border border-transparent",
+                soft: "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20 border border-emerald-500/30",
             },
             danger: {
                 solid:
-                    "bg-rose-500 hover:bg-rose-600 text-white border border-transparent",
+                    "bg-rose-500 hover:bg-rose-600 text-white border border-rose-500",
                 outline:
                     "bg-transparent border border-rose-500 text-rose-500 hover:bg-rose-500 hover:text-white",
-                soft: "bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 border border-transparent",
+                soft: "bg-rose-500/10 text-rose-500 hover:bg-rose-500/20 border border-rose-500/30",
             },
             warning: {
                 solid:
-                    "bg-amber-500 hover:bg-amber-600 text-white border border-transparent",
+                    "bg-amber-500 hover:bg-amber-600 text-white border border-amber-500",
                 outline:
                     "bg-transparent border border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white",
-                soft: "bg-amber-500/10 text-amber-500 hover:bg-amber-500/20 border border-transparent",
+                soft: "bg-amber-500/10 text-amber-500 hover:bg-amber-500/20 border border-amber-500/30",
             },
             info: {
                 solid:
-                    "bg-cyan-500 hover:bg-cyan-600 text-white border border-transparent",
+                    "bg-cyan-500 hover:bg-cyan-600 text-white border border-cyan-500",
                 outline:
                     "bg-transparent border border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-white",
-                soft: "bg-cyan-500/10 text-cyan-500 hover:bg-cyan-500/20 border border-transparent",
+                soft: "bg-cyan-500/10 text-cyan-500 hover:bg-cyan-500/20 border border-cyan-500/30",
             },
             dark: {
                 solid:
                     "bg-slate-800 hover:bg-slate-900 text-white border border-slate-700",
                 outline:
                     "bg-transparent border border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white",
-                soft: "bg-slate-500/10 text-slate-300 hover:bg-slate-500/20 border border-transparent",
+                soft: "bg-slate-500/10 text-slate-300 hover:bg-slate-500/20 border border-slate-500/30",
             },
             light: {
                 solid:
-                    "bg-slate-200 hover:bg-white text-slate-800 border border-transparent",
+                    "bg-slate-200 hover:bg-white text-slate-800 border border-slate-200",
                 outline:
                     "bg-transparent border border-slate-200 text-slate-200 hover:bg-slate-200 hover:text-slate-900",
-                soft: "bg-white/10 text-white hover:bg-white/20 border border-transparent",
+                soft: "bg-white/10 text-white hover:bg-white/20 border border-white/30",
             },
             link: {
                 solid: "",
