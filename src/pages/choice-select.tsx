@@ -60,6 +60,17 @@ export default function ChoiceSelects() {
 />`} />
       </Section>
 
+      <Section title="Input Sizing" description="Use the same inputSize options as the Input component.">
+        <div className="space-y-4">
+          <ChoiceSelect inputSize="sm" options={cityOptions} placeholder="Small choice select" />
+          <ChoiceSelect options={cityOptions} placeholder="Default choice select" />
+          <ChoiceSelect inputSize="lg" options={cityOptions} placeholder="Large choice select" />
+        </div>
+        <SourceCode code={`<ChoiceSelect inputSize="sm" options={options} />
+<ChoiceSelect inputSize="default" options={options} />
+<ChoiceSelect inputSize="lg" options={options} />`} />
+      </Section>
+
       {/* 2. Option Groups */}
       <Section title="Option Groups Example" description="Organize options into categories.">
         <ChoiceSelect

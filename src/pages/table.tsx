@@ -198,44 +198,33 @@ export default function Tables() {
                 description="Add borders on all sides of the table and cells."
             >
                 <div className="p-4">
-                    <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
-                        <Table>
-                            <Thead className="bg-secondary/10">
-                                <Tr>
-                                    <Th className="border-r border-slate-200 dark:border-slate-700">#</Th>
-                                    <Th className="border-r border-slate-200 dark:border-slate-700">First</Th>
-                                    <Th className="border-r border-slate-200 dark:border-slate-700">Last</Th>
-                                    <Th>Handle</Th>
+                    <Table tableStyle="border">
+                        <Thead className="bg-secondary/10">
+                            <Tr>
+                                <Th>#</Th>
+                                <Th>First</Th>
+                                <Th>Last</Th>
+                                <Th>Handle</Th>
+                            </Tr>
+                        </Thead>
+
+                        <Tbody>
+                            {[1, 2].map((i) => (
+                                <Tr key={i}>
+                                    <Td>{i}</Td>
+                                    <Td>Mark</Td>
+                                    <Td>Otto</Td>
+                                    <Td>@mdo</Td>
                                 </Tr>
-                            </Thead>
-
-                            <Tbody>
-                                {[1, 2].map((i) => (
-                                    <Tr key={i}>
-                                        <Td className="border-r border-slate-200 dark:border-slate-700">
-                                            {i}
-                                        </Td>
-
-                                        <Td className="border-r border-slate-200 dark:border-slate-700">
-                                            Mark
-                                        </Td>
-
-                                        <Td className="border-r border-slate-200 dark:border-slate-700">
-                                            Otto
-                                        </Td>
-
-                                        <Td>@mdo</Td>
-                                    </Tr>
-                                ))}
-                            </Tbody>
-                        </Table>
-                    </div>
+                            ))}
+                        </Tbody>
+                    </Table>
                 </div>
 
                 <SourceCode
-                    code={`<Td className="border-r border-slate-200 dark:border-slate-700">
+                    code={`<Table tableStyle="border">
   ...
-</Td>`}
+</Table>`}
                 />
             </Section>
 

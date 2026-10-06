@@ -10,10 +10,22 @@ import { cn } from "../utils/cn";
 // );
 
 
+export type TableStyle = 'default' | 'border';
+
+interface TableProps {
+    children: ReactNode;
+    className?: string;
+    tableStyle?: TableStyle;
+}
+
 // Basic Table Structure
-export const Table = ({ children, className = '' }: { children: ReactNode, className?: string }) => (
+export const Table = ({ children, className = '', tableStyle = 'default' }: TableProps) => (
     <div className="overflow-x-auto">
-        <table className={cn(`w-full text-left border-collapse`, className)}>
+        <table className={cn(
+            'w-full text-left border-collapse',
+            tableStyle === 'border' && 'border border-(--border-color) [&_th]:border [&_td]:border [&_th]:border-(--border-color) [&_td]:border-(--border-color)',
+            className,
+        )}>
             {children}
         </table>
     </div>

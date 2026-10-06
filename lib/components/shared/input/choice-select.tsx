@@ -233,6 +233,7 @@
 
 import { Check, ChevronDown, Plus, X } from "lucide-react";
 import React, { useEffect, useId, useRef, useState } from "react";
+import { InputSize } from "./types";
 
 interface Option {
     value: string;
@@ -258,6 +259,7 @@ interface ChoiceSelectCommonProps {
     creatable?: boolean;
     placeholder?: string;
     className?: string;
+    inputSize?: InputSize;
     removeItemButton?: boolean;
     unique?: boolean; // For creatable inputs to prevent duplicates
 }
@@ -289,6 +291,7 @@ const ChoiceSelect = (props: ChoiceSelectProps) => {
         creatable = false,
         placeholder = 'Select...',
         className = '',
+        inputSize = 'default',
         removeItemButton = true,
         unique = false,
     } = props;
@@ -299,6 +302,11 @@ const ChoiceSelect = (props: ChoiceSelectProps) => {
         () => normalizeSelection(defaultValue, multiple),
     );
     const selected = normalizeSelection(isControlled ? value : internalSelected, multiple);
+    const sizeClasses = {
+        sm: `${multiple ? 'min-h-8' : 'h-8'} px-2 py-1 text-xs`,
+        default: `${multiple ? 'min-h-10' : 'h-10'} px-3 py-2 text-sm`,
+        lg: `${multiple ? 'min-h-12' : 'h-12'} px-4 py-3 text-lg`,
+    }[inputSize];
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [customOptions, setCustomOptions] = useState<Option[]>([]); // For creatable inputs
@@ -407,7 +415,8 @@ const ChoiceSelect = (props: ChoiceSelectProps) => {
             <div className="relative" ref={containerRef}>
             <div
                 className={`
-                    w-full bg-background border border-(--border-color) rounded-sm min-h-[42px] px-3 py-1 flex items-center flex-wrap gap-2 cursor-pointer
+                    w-full bg-background border border-(--border-color) rounded-sm flex items-center flex-wrap gap-2 cursor-pointer
+                    ${sizeClasses}
                 `}
                 onClick={() => {
                     if (!searchable && !creatable) setIsOpen(!isOpen);
@@ -417,7 +426,7 @@ const ChoiceSelect = (props: ChoiceSelectProps) => {
                 {multiple && Array.isArray(selected) && selected.map(val => {
                     const opt = allOptions.find(o => o.value === val) || { label: val, value: val };
                     return (
-                        <span key={val} className="inline-flex items-center px-2 py-1 rounded bg-foreground text-sm text-gray-700 dark:text-slate-200">
+                        <span key={val} className={`inline-flex items-center px-2 py-1 rounded bg-foreground ${inputSize === 'lg' ? 'text-base' : inputSize === 'sm' ? 'text-xs' : 'text-sm'} text-gray-700 dark:text-slate-200`}>
                             {opt.label}
                             {removeItemButton && (
                                 <button
@@ -434,7 +443,7 @@ const ChoiceSelect = (props: ChoiceSelectProps) => {
                 {/* Input / Placeholder */}
                 <div className="flex-1 min-w-[60px] relative">
                     {!multiple && !searchTerm && !Array.isArray(selected) && selected && (
-                        <div className="absolute inset-0 flex items-center text-gray-700 dark:text-slate-200 text-sm pointer-events-none">
+                        <div className={`absolute inset-0 flex items-center text-gray-700 dark:text-slate-200 ${inputSize === 'lg' ? 'text-lg' : inputSize === 'sm' ? 'text-xs' : 'text-sm'} pointer-events-none`}>
                             {allOptions.find(o => o.value === selected)?.label || selected}
                         </div>
                     )}
@@ -442,7 +451,7 @@ const ChoiceSelect = (props: ChoiceSelectProps) => {
                     <input
                         id={inputId}
                         type="text"
-                        className="w-full bg-transparent border-none outline-none text-gray-700 dark:text-slate-200 text-sm py-2 placeholder-slate-500"
+                        className={`w-full bg-transparent border-none outline-none text-gray-700 dark:text-slate-200 ${inputSize === 'lg' ? 'text-lg' : inputSize === 'sm' ? 'text-xs' : 'text-sm'} py-0 placeholder-slate-500`}
                         placeholder={(!selected || (Array.isArray(selected) && selected.length === 0)) ? placeholder : ''}
                         value={searchTerm}
                         onChange={(e) => {
