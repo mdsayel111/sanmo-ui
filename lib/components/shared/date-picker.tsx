@@ -290,7 +290,7 @@ const DateTimePicker = ({
                     disabled={disabled}
                     onClick={() => handleDateClick(d)}
                     className={`
-            h-9 w-9 text-sm rounded-full flex items-center justify-center transition-all
+            h-9 w-9 text-sm rounded-full flex items-center justify-center
             ${isSelected ? 'bg-secondary text-white' : ''}
             ${isInRange && !isSelected ? 'bg-slate-800 text-blue-200 rounded-none' : ''}
             ${!isSelected && !isInRange && !disabled ? 'hover:bg-background text-gray-700 dark:text-slate-300' : ''}
@@ -322,7 +322,7 @@ const DateTimePicker = ({
             <button
                 type="button"
                 onClick={onUp}
-                className="text-slate-500 hover:text-black dark:hover:text-white p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                className="text-slate-500 hover:text-black dark:hover:text-white p-0.5 opacity-0 group-hover:opacity-100"
             >
                 <ChevronUp size={14} />
             </button>
@@ -335,7 +335,7 @@ const DateTimePicker = ({
             <button
                 type="button"
                 onClick={onDown}
-                className="text-slate-500 hover:text-black dark:hover:text-white p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                className="text-slate-500 hover:text-black dark:hover:text-white p-0.5 opacity-0 group-hover:opacity-100"
             >
                 <ChevronDown size={14} />
             </button>
@@ -355,7 +355,7 @@ const DateTimePicker = ({
                     placeholder={placeholder}
                     value={renderInputValue()}
                     className={`
-            w-full bg-background rounded-lg py-2.5 px-4 text-sm dark:text-slate-200 
+            w-full bg-background rounded-sm border border-(--border-color) py-2.5 px-4 text-sm dark:text-slate-200
             placeholder:text-gray-700 dark:placeholder:text-slate-100 focus:outline-none
           `}
                 />
@@ -366,7 +366,7 @@ const DateTimePicker = ({
 
             {/* Popup */}
             {isOpen && (
-                <div className="absolute z-10 mt-2 p-4 bg-foreground rounded-xl animate-in fade-in zoom-in-95 duration-200 min-w-[300px]">
+                <div className="absolute z-10 mt-2 p-4 bg-foreground rounded-xl min-w-[300px]">
 
                     {/* Calendar Header */}
                     {!noCalendar && (
@@ -434,7 +434,7 @@ const DateTimePicker = ({
                                     <button
                                         type="button"
                                         onClick={handleAMPMToggle}
-                                        className="text-gray-700 dark:text-slate-500 hover:text-black dark:hover:text-white p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                                        className="text-gray-700 dark:text-slate-500 hover:text-black dark:hover:text-white p-0.5 opacity-0 group-hover:opacity-100"
                                     >
                                         <ChevronUp size={14} />
                                     </button>
@@ -444,7 +444,7 @@ const DateTimePicker = ({
                                     <button
                                         type="button"
                                         onClick={handleAMPMToggle}
-                                        className="text-gray-700 dark:text-slate-500 hover:text-black dark:hover:text-white p-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                                        className="text-gray-700 dark:text-slate-500 hover:text-black dark:hover:text-white p-0.5 opacity-0 group-hover:opacity-100"
                                     >
                                         <ChevronDown size={14} />
                                     </button>

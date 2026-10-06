@@ -33,7 +33,7 @@ const Switch: React.FC<ToggleProps> = ({
   className = "",
 }) => {
   const baseClasses =
-    "relative inline-flex items-center rounded-full transition-all duration-200 focus:outline-none";
+    "relative inline-flex items-center rounded-full focus:outline-none";
 
   const sizeClasses: Record<Size, string> = {
     sm: "w-10 h-5",
@@ -88,7 +88,7 @@ const Switch: React.FC<ToggleProps> = ({
     >
       <span
         className={`
-          absolute top-1/2 -translate-y-1/2 left-1 bg-white rounded-full shadow transition-transform
+          absolute top-1/2 -translate-y-1/2 left-1 bg-white rounded-full shadow
           ${knobSizes[size]}
           ${checked ? translateX[size] : ""}
         `}

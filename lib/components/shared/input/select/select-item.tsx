@@ -42,7 +42,7 @@ const SelectItem: React.FC<SelectItemProps> = ({
             className={
                 cn(`
         relative flex cursor-pointer items-center rounded-sm
-        py-1.5 pl-8 pr-2 text-sm transition-colors
+        py-1.5 pl-8 pr-2 text-sm
         hover:bg-background
         ${isSelected ? 'bg-background' : ''}
         ${disabled ? 'opacity-50 cursor-not-allowed' : ''}

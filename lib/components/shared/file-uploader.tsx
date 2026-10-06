@@ -81,7 +81,7 @@ const FileUploader = ({
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
                 className={`
-          relative border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all duration-200 bg-background hover:bg-background/80
+          relative border-2 border-dashed rounded-lg p-12 text-center cursor-pointer bg-background hover:bg-background/80
           ${isDragging
                         ? 'border-secondary'
                         : 'border-slate-700 hover:border-slate-500'}
@@ -146,7 +146,7 @@ const FileUploader = ({
                             {/* Remove Button */}
                             <button
                                 onClick={(e) => { e.stopPropagation(); removeFile(index); }}
-                                className="absolute top-2 right-2 text-slate-500 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100"
+                                className="absolute top-2 right-2 text-slate-500 hover:text-rose-500 opacity-0 group-hover:opacity-100"
                             >
                                 <X size={16} />
                             </button>

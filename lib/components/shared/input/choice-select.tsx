@@ -407,7 +407,7 @@ const ChoiceSelect = (props: ChoiceSelectProps) => {
             <div className="relative" ref={containerRef}>
             <div
                 className={`
-                    w-full bg-background border border-(--border-color) rounded-sm min-h-[42px] px-3 py-1 flex items-center flex-wrap gap-2 cursor-pointer transition-all
+                    w-full bg-background border border-(--border-color) rounded-sm min-h-[42px] px-3 py-1 flex items-center flex-wrap gap-2 cursor-pointer
                 `}
                 onClick={() => {
                     if (!searchable && !creatable) setIsOpen(!isOpen);
@@ -417,7 +417,7 @@ const ChoiceSelect = (props: ChoiceSelectProps) => {
                 {multiple && Array.isArray(selected) && selected.map(val => {
                     const opt = allOptions.find(o => o.value === val) || { label: val, value: val };
                     return (
-                        <span key={val} className="inline-flex items-center px-2 py-1 rounded bg-foreground text-sm text-gray-700 dark:text-slate-200 animate-in fade-in zoom-in duration-200">
+                        <span key={val} className="inline-flex items-center px-2 py-1 rounded bg-foreground text-sm text-gray-700 dark:text-slate-200">
                             {opt.label}
                             {removeItemButton && (
                                 <button
@@ -459,13 +459,13 @@ const ChoiceSelect = (props: ChoiceSelectProps) => {
                 </div>
 
                 {!creatable && (
-                    <ChevronDown size={16} className={`text-slate-500 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown size={16} className={`text-slate-500 ${isOpen ? 'rotate-180' : ''}`} />
                 )}
             </div>
 
             {/* Dropdown Menu */}
             {isOpen && (
-                <div className="absolute z-50 w-full mt-1 bg-foreground rounded-lg shadow-xl max-h-60 overflow-y-auto animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="absolute z-50 w-full mt-1 bg-foreground rounded-lg shadow-xl max-h-60 overflow-y-auto">
                     {Object.entries(groupedOptions).length === 0 && creatable && searchTerm && (
                         <div
                             className="px-4 py-2 text-sm text-gray-800 dark:text-slate-300 hover:bg-background cursor-pointer flex items-center gap-2"

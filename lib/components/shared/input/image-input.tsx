@@ -86,7 +86,7 @@ const ImageInput = ({
                 className="sr-only"
             />
             {previewUrl ? (
-                <div className={cn("group relative min-h-48 w-full overflow-hidden rounded-sm border border-(--border-color) bg-background", className)}>
+                <div className={cn("image-input-surface group relative min-h-48 w-full overflow-hidden rounded-sm border border-(--border-color) bg-background", className)}>
                     <img
                         src={previewUrl}
                         alt={label ? `${label} preview` : "Selected image preview"}
@@ -97,7 +97,7 @@ const ImageInput = ({
                         disabled={disabled}
                         onClick={() => inputRef.current?.click()}
                         aria-label={label ? `Change ${label}` : "Change image"}
-                        className="absolute inset-0 flex items-center justify-center gap-2 bg-black/0 text-sm font-medium text-white opacity-0 transition-opacity group-hover:bg-black/45 group-hover:opacity-100 focus-visible:bg-black/45 focus-visible:opacity-100 disabled:cursor-not-allowed"
+                        className="absolute inset-0 flex items-center justify-center gap-2 bg-black/0 text-sm font-medium text-white opacity-0 group-hover:bg-black/45 group-hover:opacity-100 focus-visible:bg-black/45 focus-visible:opacity-100 disabled:cursor-not-allowed"
                     >
                         <ImagePlus size={18} aria-hidden="true" />
                         Change image
@@ -111,7 +111,7 @@ const ImageInput = ({
                             if (inputRef.current) inputRef.current.value = "";
                         }}
                         aria-label="Remove image"
-                        className="absolute right-2 top-2 inline-flex items-center justify-center rounded-sm border border-(--border-color) bg-background p-2 text-gray-700 opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100 hover:bg-foreground disabled:cursor-not-allowed disabled:opacity-50 dark:text-slate-200"
+                        className="absolute right-2 top-2 inline-flex items-center justify-center rounded-sm border border-(--border-color) bg-background p-2 text-gray-700 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 hover:bg-foreground disabled:cursor-not-allowed disabled:opacity-50 dark:text-slate-200"
                     >
                         <X size={16} />
                     </button>
@@ -122,7 +122,7 @@ const ImageInput = ({
                     disabled={disabled}
                     onClick={() => inputRef.current?.click()}
                     aria-label={label ? `Choose an image for ${label}` : undefined}
-                    className={cn("flex min-h-48 w-full items-center justify-center gap-2 rounded-sm border border-(--border-color) bg-background px-4 py-6 text-sm text-gray-700 transition-colors hover:bg-foreground disabled:cursor-not-allowed disabled:opacity-50 dark:text-slate-200", className)}
+                    className={cn("image-input-surface flex min-h-48 w-full items-center justify-center gap-2 rounded-sm border border-(--border-color) bg-background px-4 py-6 text-sm text-gray-700 hover:bg-foreground disabled:cursor-not-allowed disabled:opacity-50 dark:text-slate-200", className)}
                 >
                     <ImagePlus size={20} aria-hidden="true" />
                     Choose an image

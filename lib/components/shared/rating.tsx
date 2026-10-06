@@ -81,7 +81,7 @@ const Rating = ({
             type="button"
             disabled={disabled || readOnly}
             className={`
-              transition-transform duration-100 focus:outline-none
+              focus:outline-none
               ${!readOnly && !disabled ? 'hover:scale-110 cursor-pointer' : 'cursor-default'}
               ${itemClassName}
             `}
@@ -91,7 +91,7 @@ const Rating = ({
           >
             <Star 
               size={24} 
-              className={`transition-colors duration-200 ${isActive ? activeClassName : inactiveClassName}`}
+              className={isActive ? activeClassName : inactiveClassName}
             />
           </button>
         );

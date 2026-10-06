@@ -35,7 +35,7 @@ const Radio: React.FC<RadioProps> = ({
     ...props
 }) => {
     const baseClasses =
-        "relative inline-flex items-center justify-center transition-all duration-200 cursor-pointer bg-background";
+        "relative inline-flex items-center justify-center cursor-pointer bg-background";
 
     const sizeClasses: Record<Size, string> = {
         sm: "w-4 h-4",
@@ -172,7 +172,6 @@ const Radio: React.FC<RadioProps> = ({
       ${dotSizes[size]}
       rounded-full
       transform scale-0
-      transition-transform duration-200
       peer-checked:scale-100 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white
     `}
             />

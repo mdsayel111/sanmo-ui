@@ -142,7 +142,7 @@ const Slider = ({
                     <div
                         key={index}
                         className={`
-              absolute w-4 h-4 rounded-full border-2 border-white shadow-md cursor-grab active:cursor-grabbing hover:scale-110 transition-transform
+              absolute w-4 h-4 rounded-full border-2 border-white shadow-md cursor-grab active:cursor-grabbing hover:scale-110
               ${color}
             `}
                         style={handleStyle(val)}

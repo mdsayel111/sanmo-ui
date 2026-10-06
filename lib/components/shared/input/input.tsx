@@ -31,7 +31,7 @@ const Input = ({
        focus:outline-none
        disabled:bg-background disabled:text-slate-500 disabled:cursor-not-allowed disabled:border-slate-800
        read-only:bg-background
-       transition-all duration-200`;
+      `;
 
     return (
         <div className="w-full">

@@ -105,11 +105,11 @@ const Checkbox: React.FC<CheckboxProps> = ({
 
                 {/* Custom checkbox div */}
                 <div
-                    className={`flex items-center justify-center ${sizeClasses[size]} rounded-md border border-gray-300 dark:border-gray-600 bg-background transition-all duration-200 ${getVariantClasses()} ${className}`}
+                    className={`flex items-center justify-center ${sizeClasses[size]} rounded-md border border-gray-300 dark:border-gray-600 bg-background ${getVariantClasses()} ${className}`}
                 >
                 </div>
                 <Check
-                    className="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 transition-opacity duration-200 -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2"
+                    className="w-4 h-4 text-white opacity-0 peer-checked:opacity-100 -translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2"
                     strokeWidth={3}
                 />
             </div>

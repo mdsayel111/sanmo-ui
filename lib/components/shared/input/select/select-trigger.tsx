@@ -28,16 +28,15 @@ const SelectTrigger: React.FC<SelectTriggerProps> = ({
             type="button"
             onClick={() => setIsOpen(!isOpen)}
             className={cn(`
-        flex min-h-[2.5rem] w-full items-center justify-between rounded-sm border 
+        select-trigger flex min-h-10 w-full items-center justify-between rounded-sm border
          bg-background px-3 py-2 text-sm
         focus:outline-none
-        transition-colors duration-200
         ${className}
       `, sizeClasses)}
         >
             {children}
             <ChevronDown
-                className={`h-4 w-4 opacity-50 transition-transform ${isOpen ? 'rotate-180' : ''
+                className={`h-4 w-4 opacity-50 ${isOpen ? 'rotate-180' : ''
                     }`}
             />
         </button>

@@ -105,9 +105,8 @@ const MaskedInput = ({
             <input
                 type="text"
                 className={`
-          w-full bg-background rounded-lg text-gray-900 dark:text-slate-200 dark:placeholder-slate-200 placeholder-gray-800
+          w-full bg-background rounded-sm border border-(--border-color) text-gray-900 dark:text-slate-200 dark:placeholder-slate-200 placeholder-gray-800
           focus:outline-none
-          transition-all duration-200
           ${sizeClasses}
           ${className}
         `}
