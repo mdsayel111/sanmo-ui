@@ -33,7 +33,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
     "lucide-react": "^0.556.0",
-    "react-froala-wysiwyg": "^4.7.1",
+    "quill": "^2.0.3",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17"
   },

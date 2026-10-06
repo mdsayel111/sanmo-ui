@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Container from "../components/shared/container";
 import Section from "../components/shared/section";
 import SourceCode from "../components/shared/source-code";
@@ -5,28 +6,42 @@ import TextEditor from "../../lib/components/shared/text-editor/text-editor";
 
 
 export default function TextEditors() {
+    const [content, setContent] = useState("");
+
     return (
         <Container
             title="Text Editor"
-            description="Easy to use drag and drop file uploader with image previews."
+            description="Compose and format rich text with Quill."
         >
-
-            {/* 1. Multiple File Upload */}
             <Section
-                title="Multiple File Upload"
-                description="Allow users to select and upload multiple files at once. New files are appended to the list."
+                title="Rich Text Editor"
+                description="Format text with headings, emphasis, alignment, lists, links, and images. The editor returns the content as HTML."
             >
-                <TextEditor />
+                <div className="space-y-4">
+                    <TextEditor modelValue={content} onChange={setContent} />
 
-                <SourceCode code={`import { FileUploader } from 'sanmo-ui';
+                    <div>
+                        <h3 className="mb-2 text-sm font-medium">HTML output</h3>
+                        <pre className="max-h-48 overflow-auto whitespace-pre-wrap break-all rounded-md bg-background p-3 text-xs">
+                            {content || "Your formatted HTML will appear here as you type."}
+                        </pre>
+                    </div>
+                </div>
 
-<FileUploader 
-  multiple 
-  onFilesSelected={(files) => console.log(files)} 
-/>`} />
+                <SourceCode code={`import { useState } from 'react';
+import { TextEditor } from 'sanmo-ui';
+
+function Example() {
+  const [content, setContent] = useState('');
+
+  return (
+    <>
+      <TextEditor modelValue={content} onChange={setContent} />
+      <pre>{content}</pre>
+    </>
+  );
+}`} />
             </Section>
-
-
         </Container>
     );
 }
