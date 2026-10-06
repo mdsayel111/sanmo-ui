@@ -1,3 +1,4 @@
+import { useState } from "react";
 import ChoiceSelect from "../../lib/components/shared/input/choice-select";
 import Container from "../components/shared/container";
 import Section from "../components/shared/section";
@@ -24,6 +25,13 @@ const groupOptions = [
 ];
 
 export default function ChoiceSelects() {
+  const [city, setCity] = useState("");
+  const [technology, setTechnology] = useState("");
+  const [configuredCity, setConfiguredCity] = useState("london");
+  const [cities, setCities] = useState<string[]>(["new-york", "paris"]);
+  const [tasks, setTasks] = useState<string[]>(["Task-1", "Task-2"]);
+  const [projects, setProjects] = useState<string[]>(["Project-A", "Project-B"]);
+
   return (
     <Container
       title="Choices"
@@ -32,67 +40,122 @@ export default function ChoiceSelects() {
       
       {/* 1. Basic Example */}
       <Section title="Basic Example" description="A simple single select input.">
-        <ChoiceSelect options={cityOptions} placeholder="Choose a city..." />
+        <ChoiceSelect
+          label="City"
+          options={cityOptions}
+          value={city}
+          onChange={setCity}
+          placeholder="Choose a city..."
+        />
         <SourceCode code={`<ChoiceSelect 
+  label="City"
   options={[
     { value: 'new-york', label: 'New York' },
     { value: 'london', label: 'London' }, 
     ...
   ]} 
+  value={city}
+  onChange={setCity}
   placeholder="Choose a city..." 
 />`} />
       </Section>
 
       {/* 2. Option Groups */}
       <Section title="Option Groups Example" description="Organize options into categories.">
-        <ChoiceSelect options={groupOptions} placeholder="Select a technology..." />
+        <ChoiceSelect
+          label="Technology"
+          options={groupOptions}
+          value={technology}
+          onChange={setTechnology}
+          placeholder="Select a technology..."
+        />
         <SourceCode code={`<ChoiceSelect 
+  label="Technology"
   options={[
     { value: 'react', label: 'React', group: 'Frontend' },
     { value: 'node', label: 'Node.js', group: 'Backend' },
     ...
   ]} 
+  value={technology}
+  onChange={setTechnology}
 />`} />
       </Section>
 
       {/* 3. Non-Searchable */}
       <Section title="Options added via config with no search" description="Disables the search input functionality.">
-        <ChoiceSelect options={cityOptions} searchable={false} defaultValue="london" />
-        <SourceCode code={`<ChoiceSelect searchable={false} options={...} defaultValue="london" />`} />
+        <ChoiceSelect
+          label="Configured city"
+          options={cityOptions}
+          searchable={false}
+          value={configuredCity}
+          onChange={setConfiguredCity}
+        />
+        <SourceCode code={`<ChoiceSelect
+  label="Configured city"
+  searchable={false}
+  options={...}
+  value={city}
+  onChange={setCity}
+/>`} />
       </Section>
 
       {/* 4. Multiple Select */}
       <Section title="Multiple select input" description="Allows selecting multiple options.">
         <ChoiceSelect 
+          label="Cities"
           options={cityOptions} 
           multiple 
-          defaultValue={['new-york', 'paris']} 
+          value={cities}
+          onChange={setCities}
           placeholder="Select cities..." 
         />
-        <SourceCode code={`<ChoiceSelect multiple defaultValue={['new-york', 'paris']} options={...} />`} />
+        <SourceCode code={`<ChoiceSelect
+  label="Cities"
+  multiple
+  value={cities}
+  onChange={setCities}
+  options={...}
+/>`} />
       </Section>
 
       {/* 5. Text Inputs (Creatable) */}
       <Section title="Text Inputs" description="Acts as a tag input where users can type and create new values.">
         <ChoiceSelect 
+          label="Tasks"
           creatable 
           multiple 
           placeholder="Type and press Enter..." 
-          defaultValue={['Task-1', 'Task-2']}
+          value={tasks}
+          onChange={setTasks}
         />
-        <SourceCode code={`<ChoiceSelect creatable multiple defaultValue={['Task-1']} />`} />
+        <SourceCode code={`<ChoiceSelect
+  label="Tasks"
+  creatable
+  multiple
+  value={tasks}
+  onChange={setTasks}
+/>`} />
       </Section>
 
       {/* 6. Unique Values Only */}
       <Section title="Text inputs in Unique values only" description="Prevents duplicate tags from being added.">
         <ChoiceSelect 
+          label="Projects"
           creatable 
           multiple 
           unique 
           placeholder="Add unique project tags..." 
-          defaultValue={['Project-A', 'Project-B']}
+          value={projects}
+          onChange={setProjects}
         />
-        <SourceCode code={`<ChoiceSelect creatable multiple unique defaultValue={['Project-A']} />`} />
+        <SourceCode code={`<ChoiceSelect
+  label="Projects"
+  creatable
+  multiple
+  unique
+  value={projects}
+  onChange={setProjects}
+/>`} />
       </Section>
 
     </Container>

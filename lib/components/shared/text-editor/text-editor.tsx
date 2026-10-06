@@ -1,14 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import type Quill from 'quill';
 import { cn } from '../../utils/cn';
 import './text-editor.css';
 
 interface Props {
+    label?: string;
+    id?: string;
+    value?: string;
     modelValue?: string;
     onChange?: (value: string) => void;
 }
 
-export default function TextEditor({ modelValue = '', onChange }: Props) {
+export default function TextEditor({ label, id, value, modelValue, onChange }: Props) {
+    const generatedId = useId();
+    const editorId = id ?? generatedId;
+    const labelId = `${editorId}-label`;
+    const currentValue = value ?? modelValue ?? '';
     const toolbarRef = useRef<HTMLDivElement>(null);
     const editorRef = useRef<HTMLDivElement>(null);
     const quillRef = useRef<Quill | null>(null);
@@ -78,14 +85,34 @@ export default function TextEditor({ modelValue = '', onChange }: Props) {
     }, []);
 
     useEffect(() => {
-        const quill = quillRef.current;
-        if (quill && quill.root.innerHTML !== modelValue) {
-            quill.clipboard.dangerouslyPasteHTML(modelValue, 'silent');
+        const editor = quillRef.current?.root;
+        if (!editor) return;
+
+        editor.id = editorId;
+        if (label) {
+            editor.setAttribute('aria-labelledby', labelId);
+            editor.removeAttribute('aria-label');
+        } else {
+            editor.removeAttribute('aria-labelledby');
+            editor.setAttribute('aria-label', 'Text editor');
         }
-    }, [modelValue, editorReady]);
+    }, [editorId, editorReady, label, labelId]);
+
+    useEffect(() => {
+        const quill = quillRef.current;
+        if (quill && quill.root.innerHTML !== currentValue) {
+            quill.clipboard.dangerouslyPasteHTML(currentValue, 'silent');
+        }
+    }, [currentValue, editorReady]);
 
     return (
-        <div className={cn('text-editor w-full rounded-2xl p-4')}>
+        <div className="w-full">
+            {label && (
+                <label id={labelId} htmlFor={editorId} className="mb-1.5 block text-sm text-gray-900 dark:text-slate-400">
+                    {label}
+                </label>
+            )}
+            <div className={cn('text-editor w-full rounded-2xl')}>
             {editorError ? (
                 <p role="alert">Unable to load the text editor: {editorError}</p>
             ) : (
@@ -122,6 +149,7 @@ export default function TextEditor({ modelValue = '', onChange }: Props) {
                     {!editorReady && !editorError && <p>Loading text editor...</p>}
                 </>
             )}
+            </div>
         </div>
     );
 }

@@ -232,7 +232,7 @@
 // export default ChoiceSelect;
 
 import { Check, ChevronDown, Plus, X } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 
 interface Option {
     value: string;
@@ -240,10 +240,20 @@ interface Option {
     group?: string;
 }
 
-interface ChoiceSelectProps {
+type Selection = string | string[];
+
+function normalizeSelection(selection: Selection | undefined, multiple: boolean): Selection {
+    if (multiple) {
+        return Array.isArray(selection) ? selection : selection ? [selection] : [];
+    }
+
+    return Array.isArray(selection) ? selection[0] ?? '' : selection ?? '';
+}
+
+interface ChoiceSelectCommonProps {
     options?: Option[];
-    defaultValue?: string | string[];
-    multiple?: boolean;
+    label?: string;
+    id?: string;
     searchable?: boolean;
     creatable?: boolean;
     placeholder?: string;
@@ -252,23 +262,43 @@ interface ChoiceSelectProps {
     unique?: boolean; // For creatable inputs to prevent duplicates
 }
 
-const ChoiceSelect = ({
-    options = [],
-    defaultValue,
-    multiple = false,
-    searchable = true,
-    creatable = false,
-    placeholder = 'Select...',
-    className = '',
-    removeItemButton = true,
-    unique = false,
-}: ChoiceSelectProps) => {
-    // Normalize default value
-    const initialSelected = multiple
-        ? (Array.isArray(defaultValue) ? defaultValue : (defaultValue ? [defaultValue] : []))
-        : (defaultValue || '');
+type ChoiceSelectProps = ChoiceSelectCommonProps & (
+    | {
+        multiple: true;
+        value?: string[];
+        defaultValue?: string[];
+        onChange?: (value: string[]) => void;
+    }
+    | {
+        multiple?: false;
+        value?: string;
+        defaultValue?: string;
+        onChange?: (value: string) => void;
+    }
+);
 
-    const [selected, setSelected] = useState<string | string[]>(initialSelected);
+const ChoiceSelect = (props: ChoiceSelectProps) => {
+    const {
+        options = [],
+        label,
+        id,
+        value,
+        defaultValue,
+        multiple = false,
+        searchable = true,
+        creatable = false,
+        placeholder = 'Select...',
+        className = '',
+        removeItemButton = true,
+        unique = false,
+    } = props;
+    const generatedId = useId();
+    const inputId = id ?? generatedId;
+    const isControlled = value !== undefined;
+    const [internalSelected, setInternalSelected] = useState<Selection>(
+        () => normalizeSelection(defaultValue, multiple),
+    );
+    const selected = normalizeSelection(isControlled ? value : internalSelected, multiple);
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [customOptions, setCustomOptions] = useState<Option[]>([]); // For creatable inputs
@@ -276,6 +306,17 @@ const ChoiceSelect = ({
 
     // Combine static options with created ones
     const allOptions = [...options, ...customOptions];
+
+    const updateSelected = (nextSelected: Selection) => {
+        if (!isControlled) {
+            setInternalSelected(nextSelected);
+        }
+        if (props.multiple) {
+            props.onChange?.(Array.isArray(nextSelected) ? nextSelected : [nextSelected]);
+        } else {
+            props.onChange?.(Array.isArray(nextSelected) ? nextSelected[0] ?? '' : nextSelected);
+        }
+    };
 
     // Close dropdown on click outside
     useEffect(() => {
@@ -293,13 +334,13 @@ const ChoiceSelect = ({
         if (multiple) {
             const current = Array.isArray(selected) ? selected : [];
             if (current.includes(value)) {
-                setSelected(current.filter(item => item !== value));
+                updateSelected(current.filter(item => item !== value));
             } else {
-                setSelected([...current, value]);
+                updateSelected([...current, value]);
             }
             setSearchTerm(''); // Clear search on select for multiple
         } else {
-            setSelected(value);
+            updateSelected(value);
             setIsOpen(false);
             setSearchTerm('');
         }
@@ -308,9 +349,9 @@ const ChoiceSelect = ({
     const handleRemove = (e: React.MouseEvent, value: string) => {
         e.stopPropagation();
         if (Array.isArray(selected)) {
-            setSelected(selected.filter(item => item !== value));
+            updateSelected(selected.filter(item => item !== value));
         } else if (selected === value) {
-            setSelected('');
+            updateSelected('');
         }
     };
 
@@ -323,9 +364,12 @@ const ChoiceSelect = ({
             if (exists) return;
         }
 
-        const newOption = { value: searchTerm, label: searchTerm };
-        setCustomOptions([...customOptions, newOption]);
-        handleSelect(searchTerm);
+        const newValue = searchTerm.trim();
+        const newOption = { value: newValue, label: newValue };
+        if (!allOptions.some(option => option.value === newValue)) {
+            setCustomOptions([...customOptions, newOption]);
+        }
+        handleSelect(newValue);
         setSearchTerm('');
     };
 
@@ -354,10 +398,16 @@ const ChoiceSelect = ({
     const hasGroups = Object.keys(groupedOptions).length > 1 || (Object.keys(groupedOptions).length === 1 && Object.keys(groupedOptions)[0] !== 'default');
 
     return (
-        <div className={`relative w-full ${className}`} ref={containerRef}>
+        <div className={`w-full ${className}`}>
+            {label && (
+                <label htmlFor={inputId} className="mb-1.5 block text-sm text-gray-900 dark:text-slate-400">
+                    {label}
+                </label>
+            )}
+            <div className="relative" ref={containerRef}>
             <div
                 className={`
-                    w-full bg-background rounded-lg min-h-[42px] px-3 py-1 flex items-center flex-wrap gap-2 cursor-pointer transition-all
+                    w-full bg-background border border-(--border-color) rounded-sm min-h-[42px] px-3 py-1 flex items-center flex-wrap gap-2 cursor-pointer transition-all
                 `}
                 onClick={() => {
                     if (!searchable && !creatable) setIsOpen(!isOpen);
@@ -367,7 +417,7 @@ const ChoiceSelect = ({
                 {multiple && Array.isArray(selected) && selected.map(val => {
                     const opt = allOptions.find(o => o.value === val) || { label: val, value: val };
                     return (
-                        <span key={val} className="inline-flex items-center px-2 py-1 rounded bg-foreground text-sm text-gray-900 dark:text-slate-200 animate-in fade-in zoom-in duration-200">
+                        <span key={val} className="inline-flex items-center px-2 py-1 rounded bg-foreground text-sm text-gray-700 dark:text-slate-200 animate-in fade-in zoom-in duration-200">
                             {opt.label}
                             {removeItemButton && (
                                 <button
@@ -384,14 +434,15 @@ const ChoiceSelect = ({
                 {/* Input / Placeholder */}
                 <div className="flex-1 min-w-[60px] relative">
                     {!multiple && !searchTerm && !Array.isArray(selected) && selected && (
-                        <div className="absolute inset-0 flex items-center text-gray-800 dark:text-slate-200 text-sm pointer-events-none">
+                        <div className="absolute inset-0 flex items-center text-gray-700 dark:text-slate-200 text-sm pointer-events-none">
                             {allOptions.find(o => o.value === selected)?.label || selected}
                         </div>
                     )}
 
                     <input
+                        id={inputId}
                         type="text"
-                        className="w-full bg-transparent border-none outline-none text-slate-200 text-sm py-2 placeholder-slate-500 dark:placeholder-slate-200"
+                        className="w-full bg-transparent border-none outline-none text-gray-700 dark:text-slate-200 text-sm py-2 placeholder-slate-500"
                         placeholder={(!selected || (Array.isArray(selected) && selected.length === 0)) ? placeholder : ''}
                         value={searchTerm}
                         onChange={(e) => {
@@ -402,6 +453,8 @@ const ChoiceSelect = ({
                         onFocus={() => setIsOpen(true)}
                         onClick={(e) => e.stopPropagation()} // Prevent immediate close
                         readOnly={!searchable && !creatable}
+                        aria-expanded={isOpen}
+                        aria-haspopup="listbox"
                     />
                 </div>
 
@@ -456,6 +509,7 @@ const ChoiceSelect = ({
                     ))}
                 </div>
             )}
+            </div>
         </div>
     );
 };

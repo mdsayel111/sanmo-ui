@@ -18,7 +18,7 @@ export default function TextEditors() {
                 description="Format text with headings, emphasis, alignment, lists, links, and images. The editor returns the content as HTML."
             >
                 <div className="space-y-4">
-                    <TextEditor modelValue={content} onChange={setContent} />
+                    <TextEditor label="Content" value={content} onChange={setContent} />
 
                     <div>
                         <h3 className="mb-2 text-sm font-medium">HTML output</h3>
@@ -36,7 +36,7 @@ function Example() {
 
   return (
     <>
-      <TextEditor modelValue={content} onChange={setContent} />
+      <TextEditor label="Content" value={content} onChange={setContent} />
       <pre>{content}</pre>
     </>
   );
