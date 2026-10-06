@@ -64,7 +64,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
                         <LinkComponent
                             href={item.href || "#"}
                             className={cn(
-                                "text-sm font-medium gap-2 flex items-center py-2 px-2 rounded-sm cursor-pointer text-gray-900 dark:text-gray-300 hover:bg-background hover:text-black dark:hover:text-white transition-colors",
+                                "text-sm font-medium gap-2 flex items-center py-2 px-2 rounded-sm cursor-pointer text-gray-900 dark:text-gray-300 hover:bg-background hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out",
                                 isActive && "text-secondary dark:text-secondary bg-background hover:text-secondary",
                             )}
                             onClick={(e: React.MouseEvent<HTMLAnchorElement>) => e.stopPropagation()}
@@ -76,7 +76,7 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
                     </>
                 ) : (
                     <div className={cn(
-                        "flex justify-between items-center py-2 px-2 w-full rounded-sm cursor-pointer text-gray-900 dark:text-gray-300 hover:bg-background hover:text-black dark:hover:text-white transition-colors",
+                        "flex justify-between items-center py-2 px-2 w-full rounded-sm cursor-pointer text-gray-900 dark:text-gray-300 hover:bg-background hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out",
                         isActive && "text-secondary dark:text-secondary bg-background hover:text-secondary",
                     )}>
                         <div

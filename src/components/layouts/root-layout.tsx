@@ -173,6 +173,10 @@ const navItemsData: SidebarNavItem[] = [
                 href: '/components/inputs',
             },
             {
+                name: 'Image Input',
+                href: '/components/image-input',
+            },
+            {
                 name: 'Checkbox & Radio',
                 href: '/components/checkboxesAndRadios',
             },
