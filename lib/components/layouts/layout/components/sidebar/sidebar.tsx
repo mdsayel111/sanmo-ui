@@ -1,12 +1,37 @@
 
-// @ts-ignore
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // @ts-ignore
 import logo from '../../../../../assets/logo.webp';
 import SidebarItem from './components/sidebar-item';
 import { CategoryItem, NavItem } from './type';
 
 export type SidebarNavItem = NavItem | CategoryItem;
+
+const normalizePath = (path?: string) => {
+    if (path === undefined) return undefined;
+    return path.split(/[?#]/, 1)[0].replace(/\/+$/, '') || '/';
+};
+
+const isItemActive = (item: NavItem, currentPath?: string): boolean => {
+    const itemPath = normalizePath(item.href);
+    return (
+        currentPath !== undefined
+        && (
+            (itemPath !== undefined && normalizePath(currentPath) === itemPath)
+            || !!item.children?.some((child) => isItemActive(child, currentPath))
+        )
+    );
+};
+
+const getActiveParentNames = (items: SidebarNavItem[], currentPath?: string): string[] => {
+    if (currentPath === undefined) return [];
+
+    return items.flatMap((item) => {
+        if ('category' in item || !item.children?.length) return [];
+        if (!item.children.some((child) => isItemActive(child, currentPath))) return [];
+        return [item.name, ...getActiveParentNames(item.children, currentPath)];
+    });
+};
 
 interface SidebarProps {
     sidebarOpen: boolean;
@@ -27,7 +52,11 @@ export default function Sidebar({
     LinkComponent,
     currentPath,
 }: SidebarProps) {
-    const [expandedMenus, setExpandedMenus] = useState<string>("");
+    const [expandedMenus, setExpandedMenus] = useState<string[]>(() => getActiveParentNames(navItems, currentPath));
+
+    useEffect(() => {
+        setExpandedMenus(getActiveParentNames(navItems, currentPath));
+    }, [navItems, currentPath]);
 
     return (
         <div>

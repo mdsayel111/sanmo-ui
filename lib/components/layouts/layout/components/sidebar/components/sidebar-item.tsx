@@ -9,8 +9,8 @@ import SidebarCategory from "./sidebar-category";
 interface SidebarItemProps {
     item: NavItem | CategoryItem;
     depth?: number;
-    expandedMenus: string;
-    setExpandedMenus: any;
+    expandedMenus: string[];
+    setExpandedMenus: React.Dispatch<React.SetStateAction<string[]>>;
     LinkComponent?: React.ElementType;
     currentPath?: string;
 }
@@ -30,17 +30,33 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
     const hasChildren = !!item.children?.length;
     const Icon = item.icon;
 
-    const paddingLeft = 16 + depth * 11;
-    const normalizedPath = (path?: string) => path?.split(/[?#]/, 1)[0].replace(/\/+$/, '') || '/';
-    const isActive = currentPath !== undefined
-        && normalizedPath(currentPath) === normalizedPath(item.href);
+    const marginLeft = 16 + depth * 11;
+    const normalizedPath = (path?: string) => {
+        if (path === undefined) return undefined;
+        return path.split(/[?#]/, 1)[0].replace(/\/+$/, '') || '/';
+    };
+    const isItemActive = (navItem: NavItem): boolean => {
+        const itemPath = normalizedPath(navItem.href);
+        return (
+            currentPath !== undefined
+            && (
+                (itemPath !== undefined && normalizedPath(currentPath) === itemPath)
+                || !!navItem.children?.some(isItemActive)
+            )
+        );
+    };
+    const isActive = isItemActive(item);
 
     return (
         <div>
 
             {/* Item row */}
             <div
-                onClick={() => hasChildren ? setExpandedMenus(expandedMenus === item?.name ? "" : item?.name) : setExpandedMenus("")}
+                onClick={() => hasChildren && setExpandedMenus((menus) => (
+                    menus.includes(item.name)
+                        ? menus.filter((name) => name !== item.name)
+                        : [...menus, item.name]
+                ))}
             >
                 {/* Use Link only if there is no submenu */}
                 {!hasChildren ? (
@@ -48,12 +64,11 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
                         <LinkComponent
                             href={item.href || "#"}
                             className={cn(
-                                "text-sm font-medium gap-2 flex items-center py-2 px-2 cursor-pointer text-gray-900 dark:text-gray-300 hover:text-black dark:hover:text-white",
-                                isActive && "text-secondary dark:text-secondary bg-background hover:text-secondary rounded-sm",
-                                depth === 0 ? " w-full hover:bg-background" : "duration-300 transition-transform hover:translate-x-2 bg-transparent w-fit",
+                                "text-sm font-medium gap-2 flex items-center py-2 px-2 rounded-sm cursor-pointer text-gray-900 dark:text-gray-300 hover:bg-background hover:text-black dark:hover:text-white transition-colors",
+                                isActive && "text-secondary dark:text-secondary bg-background hover:text-secondary",
                             )}
                             onClick={(e: React.MouseEvent<HTMLAnchorElement>) => e.stopPropagation()}
-                            style={depth !== 0 ? { paddingLeft } : {}}
+                            style={depth !== 0 ? { marginLeft } : {}}
                         >
                             {Icon && <Icon size={18} />}
                             {item.name}
@@ -61,23 +76,22 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
                     </>
                 ) : (
                     <div className={cn(
-                        "flex justify-between items-center py-2 px-2 cursor-pointer",
-                        expandedMenus === item.name ? "text-secondary bg-background rounded-sm" : "",
+                        "flex justify-between items-center py-2 px-2 w-full rounded-sm cursor-pointer text-gray-900 dark:text-gray-300 hover:bg-background hover:text-black dark:hover:text-white transition-colors",
+                        isActive && "text-secondary dark:text-secondary bg-background hover:text-secondary",
                     )}>
                         <div
-                            // style={{ paddingLeft, paddingRight }}
                             className="flex items-center gap-2 ">
                             {Icon && <Icon size={18} />}
                             <span className="text-sm font-medium">{item.name}</span>
                         </div>
-                        {expandedMenus === item.name ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                        {expandedMenus.includes(item.name) ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </div>
                 )}
             </div>
 
             {/* Render children recursively */}
-            {hasChildren && expandedMenus === item.name && (
-                <div className="">
+            {hasChildren && expandedMenus.includes(item.name) && (
+                <div className="mt-1 space-y-0.5">
                     {item.children!.map((child, i) => (
                         <SidebarItem
                             key={i}
