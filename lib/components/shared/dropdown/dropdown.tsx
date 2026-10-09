@@ -8,10 +8,12 @@ import { cn } from '../../utils/cn';
 export type DropdownVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'dark' | 'link';
 export type DropdownDirection = 'up' | 'down' | 'left' | 'right' | 'rightBottom';
 export type AutoCloseBehavior = 'true' | 'inside' | 'outside' | 'manual';
+export type DropdownStyleType = 'solid' | 'outline' | 'soft';
 
 export interface DropdownProps {
-    // label: string | ReactNode;
+    label?: ReactNode;
     variant?: DropdownVariant;
+    styleType?: DropdownStyleType;
     split?: boolean;
     direction?: DropdownDirection;
     // darkMenu?: boolean;
@@ -22,6 +24,7 @@ export interface DropdownProps {
     // options?: DropdownOption[];
     value?: any;
     // onChange?: (value: any) => void;
+    triggerClassName?: string;
     children?: ReactNode;
 }
 
@@ -34,8 +37,9 @@ export interface DropdownOption {
 
 // Main Component
 const Dropdown: React.FC<DropdownProps> = ({
-    // label,
+    label,
     variant = 'secondary',
+    styleType = 'solid',
     split = false,
     direction = 'down',
     // darkMenu = false,
@@ -45,6 +49,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     // menuClassName = '',
     // options = [],
     // onChange,
+    triggerClassName = '',
     children
 }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -99,9 +104,58 @@ const Dropdown: React.FC<DropdownProps> = ({
         }
     };
 
+    const triggerColors: Record<DropdownVariant, Record<DropdownStyleType, string>> = {
+        primary: {
+            solid: "border-secondary/80 bg-secondary/80 text-white hover:bg-secondary",
+            outline: "border-secondary bg-white text-secondary hover:bg-secondary/5 dark:bg-slate-900",
+            soft: "border-secondary/30 bg-secondary/10 text-secondary hover:bg-secondary/20"
+        },
+        secondary: {
+            solid: "border-slate-700 bg-slate-700 text-white hover:bg-slate-600",
+            outline: "border-slate-500 bg-white text-slate-600 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300",
+            soft: "border-slate-500/30 bg-slate-500/10 text-slate-600 hover:bg-slate-500/20 dark:text-slate-300"
+        },
+        success: {
+            solid: "border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700",
+            outline: "border-emerald-600 bg-white text-emerald-600 hover:bg-emerald-50 dark:bg-slate-900",
+            soft: "border-emerald-600/30 bg-emerald-600/10 text-emerald-600 hover:bg-emerald-600/20"
+        },
+        danger: {
+            solid: "border-rose-600 bg-rose-600 text-white hover:bg-rose-700",
+            outline: "border-rose-500 bg-white text-rose-500 hover:bg-rose-50 dark:bg-slate-900",
+            soft: "border-rose-500/30 bg-rose-500/10 text-rose-500 hover:bg-rose-500/20"
+        },
+        dark: {
+            solid: "border-slate-800 bg-slate-800 text-white hover:bg-slate-700",
+            outline: "border-slate-600 bg-white text-slate-700 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300",
+            soft: "border-slate-500/30 bg-slate-500/10 text-slate-700 hover:bg-slate-500/20 dark:text-slate-300"
+        },
+        link: {
+            solid: "border-transparent bg-transparent px-0 text-blue-600 underline hover:text-blue-700",
+            outline: "border-transparent bg-transparent px-0 text-blue-600 underline hover:text-blue-700",
+            soft: "border-transparent bg-transparent px-0 text-blue-600 underline hover:text-blue-700"
+        }
+    };
+
     return (
         <div className={cn(`relative inline-block text-left`, className)} ref={ref}>
             <DropdownContext.Provider value={{ toggle, isOpen, getVariantClasses, renderArrow, getMenuPosition }}>
+                {label !== undefined && (
+                    <button
+                        type="button"
+                        aria-haspopup="menu"
+                        aria-expanded={isOpen}
+                        onClick={toggle}
+                        className={cn(
+                            "inline-flex items-center justify-between gap-2 rounded-md border px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+                            triggerColors[variant][styleType],
+                            triggerClassName
+                        )}
+                    >
+                        {label}
+                        {renderArrow()}
+                    </button>
+                )}
                 {children}
             </DropdownContext.Provider>
             {/* {

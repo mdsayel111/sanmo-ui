@@ -262,6 +262,63 @@ export default function PaginationPage() {
                 />
             </Section>
 
+            {/* Laravel Pagination */}
+            <Section
+                title="Laravel Pagination"
+                description="Connect the Pagination component to Laravel's paginated API responses."
+            >
+                <p className="mb-4">
+                    Laravel's paginator provides <code>current_page</code> and <code>last_page</code>.
+                    Pass those values to the component and update the requested page with <code>onPageChange</code>.
+                </p>
+
+                <SourceCode
+                    code={`import { useEffect, useState } from "react";
+import { Pagination } from "sanmo-ui";
+
+type User = { id: number; name: string };
+
+type LaravelPaginator<T> = {
+  data: T[];
+  current_page: number;
+  last_page: number;
+  total: number;
+};
+
+export default function Users() {
+  const [page, setPage] = useState(1);
+  const [users, setUsers] = useState<LaravelPaginator<User> | null>(null);
+
+  useEffect(() => {
+    fetch(\`/api/users?page=\${page}\`)
+      .then((response) => {
+        if (!response.ok) throw new Error("Unable to load users");
+        return response.json();
+      })
+      .then(setUsers)
+      .catch((error: unknown) => console.error("Unable to load users:", error));
+  }, [page]);
+
+  return users ? (
+    <>
+      {/* Render users.data here */}
+      <Pagination
+        currentPage={users.current_page}
+        totalPages={users.last_page}
+        onPageChange={setPage}
+        showInfo
+      />
+    </>
+  ) : null;
+}`}
+                />
+                <p className="mt-4">
+                    If you return a Laravel API Resource collection, the pagination values are under
+                    <code> response.meta</code>; use <code>response.meta.current_page</code> and
+                    <code> response.meta.last_page</code> instead.
+                </p>
+            </Section>
+
         </Container>
     );
 }

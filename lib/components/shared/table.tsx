@@ -66,3 +66,9 @@ export const Td = ({ children, className = '' }: { children: ReactNode, classNam
         {children}
     </td>
 );
+
+export const NoData = ({ children, className = '' }: { children: ReactNode, className?: string }) => (
+    <td className={cn(`px-6 py-4 whitespace-nowrap text-sm`, className)}>
+        {children || "No item found"}
+    </td>
+);

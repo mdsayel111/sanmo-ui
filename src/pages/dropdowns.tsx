@@ -70,6 +70,29 @@ export default function Dropdowns() {
 
 `} />
             </Section>
+
+            <Section
+                title="Outlined Actions Dropdown"
+                description="Use the built-in label trigger with an outlined variant."
+            >
+                <Dropdown label="Actions" variant="danger" styleType="outline">
+                    <DropdownContent>
+                        <DropdownItem>Edit</DropdownItem>
+                        <DropdownItem>Duplicate</DropdownItem>
+                        <DropdownDivider />
+                        <DropdownItem>Delete</DropdownItem>
+                    </DropdownContent>
+                </Dropdown>
+
+                <SourceCode code={`<Dropdown label="Actions" variant="danger" styleType="outline">
+    <DropdownContent>
+        <DropdownItem>Edit</DropdownItem>
+        <DropdownItem>Duplicate</DropdownItem>
+        <DropdownDivider />
+        <DropdownItem>Delete</DropdownItem>
+    </DropdownContent>
+</Dropdown>`} />
+            </Section>
         </Container>
     );
 }

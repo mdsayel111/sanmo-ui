@@ -21,7 +21,7 @@ export { default as DropdownItem } from './components/shared/dropdown/dropdown-i
 export { default as DropdownText } from './components/shared/dropdown/dropdown-text'
 export { default as DropdownPlaceholder } from './components/shared/dropdown/dropdown-placeholder'
 export { default as DropdownContent } from './components/shared/dropdown/dropdown-content'
-export type { AutoCloseBehavior, DropdownDirection, DropdownVariant } from './components/shared/dropdown/dropdown'
+export type { AutoCloseBehavior, DropdownDirection, DropdownProps, DropdownStyleType, DropdownVariant } from './components/shared/dropdown/dropdown'
 
 // modal exports
 export { default as Modal } from './components/shared/modal/modal'
@@ -129,3 +129,6 @@ export { Tr } from './components/shared/table'
 export { Th } from './components/shared/table'
 export { Td } from './components/shared/table'
 export type { TableStyle } from './components/shared/table'
+
+// pagination exports
+export { default as Pagination } from './components/shared/pagination'
