@@ -45,7 +45,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     // darkMenu = false,
     autoClose = 'true',
     // content,
-    className = 'w-48',
+    className = '',
     // menuClassName = '',
     // options = [],
     // onChange,
@@ -107,27 +107,27 @@ const Dropdown: React.FC<DropdownProps> = ({
     const triggerColors: Record<DropdownVariant, Record<DropdownStyleType, string>> = {
         primary: {
             solid: "border-secondary/80 bg-secondary/80 text-white hover:bg-secondary",
-            outline: "border-secondary bg-white text-secondary hover:bg-secondary/5 dark:bg-slate-900",
+            outline: "border-secondary bg-transparent text-secondary hover:bg-secondary hover:text-white",
             soft: "border-secondary/30 bg-secondary/10 text-secondary hover:bg-secondary/20"
         },
         secondary: {
             solid: "border-slate-700 bg-slate-700 text-white hover:bg-slate-600",
-            outline: "border-slate-500 bg-white text-slate-600 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300",
+            outline: "border-slate-500 bg-transparent text-slate-600 hover:bg-slate-500 hover:text-white dark:text-slate-300",
             soft: "border-slate-500/30 bg-slate-500/10 text-slate-600 hover:bg-slate-500/20 dark:text-slate-300"
         },
         success: {
             solid: "border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700",
-            outline: "border-emerald-600 bg-white text-emerald-600 hover:bg-emerald-50 dark:bg-slate-900",
+            outline: "border-emerald-600 bg-transparent text-emerald-600 hover:bg-emerald-600 hover:text-white",
             soft: "border-emerald-600/30 bg-emerald-600/10 text-emerald-600 hover:bg-emerald-600/20"
         },
         danger: {
             solid: "border-rose-600 bg-rose-600 text-white hover:bg-rose-700",
-            outline: "border-rose-500 bg-white text-rose-500 hover:bg-rose-50 dark:bg-slate-900",
+            outline: "border-rose-500 bg-transparent text-rose-500 hover:bg-rose-500 hover:text-white",
             soft: "border-rose-500/30 bg-rose-500/10 text-rose-500 hover:bg-rose-500/20"
         },
         dark: {
             solid: "border-slate-800 bg-slate-800 text-white hover:bg-slate-700",
-            outline: "border-slate-600 bg-white text-slate-700 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300",
+            outline: "border-slate-600 bg-transparent text-slate-700 hover:bg-slate-600 hover:text-white dark:text-slate-300",
             soft: "border-slate-500/30 bg-slate-500/10 text-slate-700 hover:bg-slate-500/20 dark:text-slate-300"
         },
         link: {

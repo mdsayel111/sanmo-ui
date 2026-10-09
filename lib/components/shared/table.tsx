@@ -62,7 +62,7 @@ export const Th = ({ children, className = '' }: { children: ReactNode, classNam
 );
 
 export const Td = ({ children, className = '' }: { children: ReactNode, className?: string }) => (
-    <td className={cn(`px-6 py-4 whitespace-nowrap text-sm`, className)}>
+    <td className={cn(`px-6 py-3 whitespace-nowrap text-sm`, className)}>
         {children}
     </td>
 );
