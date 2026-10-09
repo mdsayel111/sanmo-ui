@@ -67,8 +67,18 @@ export const Td = ({ children, className = '' }: { children: ReactNode, classNam
     </td>
 );
 
-export const NoData = ({ children, className = '' }: { children: ReactNode, className?: string }) => (
-    <td className={cn(`px-6 py-4 whitespace-nowrap text-sm`, className)}>
-        {children || "No item found"}
-    </td>
+export const NoData = ({
+    children,
+    colSpan=999999,
+    className = ''
+}: {
+    children?: ReactNode;
+    colSpan?: number;
+    className?: string;
+}) => (
+    <Tr>
+        <td colSpan={colSpan} className={cn(`px-6 py-4 text-center text-sm`, className)}>
+            {children ?? "No item found"}
+        </td>
+    </Tr>
 );

@@ -128,6 +128,7 @@ export { Tfoot } from './components/shared/table'
 export { Tr } from './components/shared/table'
 export { Th } from './components/shared/table'
 export { Td } from './components/shared/table'
+export { NoData } from './components/shared/table'
 export type { TableStyle } from './components/shared/table'
 
 // pagination exports

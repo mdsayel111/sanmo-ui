@@ -8,6 +8,7 @@ import {
     Thead,
     Tr
 } from '../../lib/components/shared/table';
+import { NoData } from '../../lib/components/shared/table';
 
 import Container from "../components/shared/container";
 import Section from "../components/shared/section";
@@ -116,6 +117,33 @@ export default function Tables() {
     </Tr>
   </Tbody>
 </Table>`}
+                />
+            </Section>
+
+            <Section
+                title="Empty Table"
+                description="Render an empty-state row spanning all table columns when there are no records."
+            >
+                <div className="p-4">
+                    <Table>
+                        <Thead>
+                            <Tr>
+                                <Th>#</Th>
+                                <Th>First</Th>
+                                <Th>Last</Th>
+                                <Th>Handle</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            <NoData colSpan={4}>No users found</NoData>
+                        </Tbody>
+                    </Table>
+                </div>
+
+                <SourceCode
+                    code={`<Tbody>
+  <NoData colSpan={4}>No users found</NoData>
+</Tbody>`}
                 />
             </Section>
 
