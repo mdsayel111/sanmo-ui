@@ -1,12 +1,12 @@
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'lucide-react';
-import React, { ReactNode, useRef, useState } from 'react';
-import useOnClickOutside from '../../../hooks/useOnClickOutside';
+import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from 'react';
 import { DropdownContext } from './dropdown-context';
 import { cn } from '../../utils/cn';
 
 
 export type DropdownVariant = 'primary' | 'secondary' | 'success' | 'danger' | 'dark' | 'link';
 export type DropdownDirection = 'up' | 'down' | 'left' | 'right' | 'rightBottom';
+export type DropdownAlign = 'start' | 'end';
 export type AutoCloseBehavior = 'true' | 'inside' | 'outside' | 'manual';
 export type DropdownStyleType = 'solid' | 'outline' | 'soft';
 
@@ -16,6 +16,7 @@ export interface DropdownProps {
     styleType?: DropdownStyleType;
     split?: boolean;
     direction?: DropdownDirection;
+    align?: DropdownAlign;
     // darkMenu?: boolean;
     autoClose?: AutoCloseBehavior;
     // content?: ReactNode;
@@ -42,6 +43,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     styleType = 'solid',
     split = false,
     direction = 'down',
+    align,
     // darkMenu = false,
     autoClose = 'true',
     // content,
@@ -54,12 +56,24 @@ const Dropdown: React.FC<DropdownProps> = ({
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
 
-    useOnClickOutside(ref as any, () => {
-        if (autoClose === 'true' || autoClose === 'outside') setIsOpen(false);
-    });
+    useEffect(() => {
+        const closeOnOutsideClick = (event: MouseEvent | TouchEvent) => {
+            const target = event.target as Node;
+            if (ref.current?.contains(target) || menuRef.current?.contains(target)) return;
+            if (autoClose === 'true' || autoClose === 'outside') setIsOpen(false);
+        };
 
-    const toggle = () => setIsOpen(!isOpen);
+        document.addEventListener('mousedown', closeOnOutsideClick);
+        document.addEventListener('touchstart', closeOnOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', closeOnOutsideClick);
+            document.removeEventListener('touchstart', closeOnOutsideClick);
+        };
+    }, [autoClose]);
+
+    const toggle = () => setIsOpen((open) => !open);
 
     const getVariantClasses = (isSplitPart = false): string => {
         const base = "font-medium text-sm transition-all duration-200 focus:outline-none";
@@ -84,14 +98,91 @@ const Dropdown: React.FC<DropdownProps> = ({
     };
 
     const getMenuPosition = (): string => {
+        const effectiveAlign = align ?? (direction === 'rightBottom' ? 'end' : 'start');
         const positions: Record<DropdownDirection, string> = {
-            up: "bottom-full left-0 mb-2 origin-bottom-left",
-            left: "right-full top-0 mr-2 origin-top-right",
-            right: "left-full top-0 ml-2 origin-top-left",
-            rightBottom: "top-full right-0 mt-2 origin-top-right",
-            down: "top-full left-0 mt-2 origin-top-left"
+            up: effectiveAlign === 'end' ? "origin-bottom-right" : "origin-bottom-left",
+            left: effectiveAlign === 'end' ? "origin-bottom-right" : "origin-top-right",
+            right: effectiveAlign === 'end' ? "origin-bottom-left" : "origin-top-left",
+            rightBottom: effectiveAlign === 'end' ? "origin-top-right" : "origin-top-left",
+            down: effectiveAlign === 'end' ? "origin-top-right" : "origin-top-left"
         };
         return positions[direction];
+    };
+
+    const getMenuStyle = (menu: HTMLElement): CSSProperties => {
+        const trigger = ref.current?.getBoundingClientRect();
+        if (!trigger) return { position: 'fixed', visibility: 'hidden' };
+
+        const menuRect = menu.getBoundingClientRect();
+        const gap = 4;
+        const edge = 8;
+        const effectiveAlign = align ?? (direction === 'rightBottom' ? 'end' : 'start');
+        const viewportWidth = document.documentElement.clientWidth;
+        const viewportHeight = document.documentElement.clientHeight;
+        const menuWidth = Math.min(
+            Math.max(menuRect.width, trigger.width),
+            viewportWidth - edge * 2
+        );
+        const menuHeight = Math.min(menuRect.height, viewportHeight - edge * 2);
+        const spaceBelow = viewportHeight - trigger.bottom - gap - edge;
+        const spaceAbove = trigger.top - gap - edge;
+        const spaceRight = viewportWidth - trigger.right - gap - edge;
+        const spaceLeft = trigger.left - gap - edge;
+        let left = effectiveAlign === 'end' ? trigger.right - menuWidth : trigger.left;
+        let top = trigger.bottom + gap;
+        let maxHeight = viewportHeight - edge * 2;
+
+        switch (direction) {
+            case 'up':
+                if (menuHeight > spaceAbove && spaceBelow > spaceAbove) {
+                    top = trigger.bottom + gap;
+                    maxHeight = spaceBelow;
+                } else {
+                    top = Math.max(edge, trigger.top - menuHeight - gap);
+                    maxHeight = spaceAbove;
+                }
+                break;
+            case 'left':
+                if (menuWidth > spaceLeft && spaceRight > spaceLeft) {
+                    left = trigger.right + gap;
+                } else {
+                    left = trigger.left - menuWidth - gap;
+                }
+                top = effectiveAlign === 'end' ? trigger.bottom - menuHeight : trigger.top;
+                break;
+            case 'right':
+                if (menuWidth > spaceRight && spaceLeft > spaceRight) {
+                    left = trigger.left - menuWidth - gap;
+                } else {
+                    left = trigger.right + gap;
+                }
+                top = effectiveAlign === 'end' ? trigger.bottom - menuHeight : trigger.top;
+                break;
+            case 'down':
+            case 'rightBottom':
+                if (menuHeight > spaceBelow && spaceAbove > spaceBelow) {
+                    top = Math.max(edge, trigger.top - menuHeight - gap);
+                    maxHeight = spaceAbove;
+                } else {
+                    maxHeight = spaceBelow;
+                }
+                break;
+        }
+
+        left = Math.min(Math.max(edge, left), viewportWidth - menuWidth - edge);
+        top = Math.min(
+            Math.max(edge, top),
+            viewportHeight - edge - Math.min(menuHeight, maxHeight)
+        );
+
+        return {
+            position: 'fixed',
+            left,
+            top,
+            minWidth: Math.min(trigger.width, viewportWidth - edge * 2),
+            maxWidth: viewportWidth - edge * 2,
+            maxHeight: Math.max(edge, Math.min(maxHeight, viewportHeight - edge * 2))
+        };
     };
 
     const renderArrow = () => {
@@ -139,7 +230,17 @@ const Dropdown: React.FC<DropdownProps> = ({
 
     return (
         <div className={cn(`relative inline-block text-left`, className)} ref={ref}>
-            <DropdownContext.Provider value={{ toggle, isOpen, getVariantClasses, renderArrow, getMenuPosition }}>
+            <DropdownContext.Provider value={{
+                toggle,
+                isOpen,
+                getVariantClasses,
+                renderArrow,
+                getMenuPosition,
+                getMenuStyle,
+                triggerRef: ref,
+                menuRef,
+                direction
+            }}>
                 {label !== undefined && (
                     <button
                         type="button"

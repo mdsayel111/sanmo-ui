@@ -93,6 +93,25 @@ export default function Dropdowns() {
     </DropdownContent>
 </Dropdown>`} />
             </Section>
+
+            <Section
+                title="Menu Alignment"
+                description="Align the menu to the start or end of its trigger. The default preserves the existing direction-based alignment."
+            >
+                <Dropdown label="End aligned" align="end">
+                    <DropdownContent>
+                        <DropdownItem>Option 1</DropdownItem>
+                        <DropdownItem>Option 2</DropdownItem>
+                    </DropdownContent>
+                </Dropdown>
+
+                <SourceCode code={`<Dropdown label="End aligned" align="end">
+    <DropdownContent>
+        <DropdownItem>Option 1</DropdownItem>
+        <DropdownItem>Option 2</DropdownItem>
+    </DropdownContent>
+</Dropdown>`} />
+            </Section>
         </Container>
     );
 }
