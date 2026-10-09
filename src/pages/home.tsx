@@ -50,9 +50,9 @@ export default function Home() {
                 title="🚀 Getting Started"
             >
 
-                <h3 className="font-medium mb-2">1. Import styles</h3>
+                <h3 className="font-medium mb-2">1. Import styles top of the global css file</h3>
                 <SourceCode
-                    code={`import "sanmo-ui/style.css";`}
+                    code={`@import "sanmo-ui/style.css";;`}
                 />
 
                 {/* <h3 className="font-medium mt-6 mb-2">2. Use RootLayout</h3>
@@ -112,12 +112,12 @@ export default function App() {
 }
 `
                     } /> */}
-                <SourceCode
+                {/* <SourceCode
                     code={`import { Button } from "sanmo-ui";
 export default function App() {
   return <Button>Click me</Button>;
 }`}
-                />
+                /> */}
             </Section>
 
             {/* TypeScript */}

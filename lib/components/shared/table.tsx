@@ -32,7 +32,7 @@ export const Table = ({ children, className = '', tableStyle = 'default' }: Tabl
 );
 
 export const Thead = ({ children, className = '' }: { children: ReactNode, className?: string }) => (
-    <thead className={`text-xs uppercase font-semibold border-b border-slate-700/50  text-black dark:text-white ${className}`}>
+    <thead className={cn(`text-xs uppercase font-semibold border-b border-slate-700/50  text-black dark:text-white`, className)}>
         {children}
     </thead>
 );
