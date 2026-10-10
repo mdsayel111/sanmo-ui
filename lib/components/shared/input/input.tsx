@@ -1,8 +1,9 @@
 import { Eye, EyeOff } from "lucide-react";
 import { ReactNode } from "react";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { InputSize } from "./types";
 import { cn } from "../../utils/cn";
+import FieldLabel from "../field-label";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string;
@@ -13,6 +14,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 const Input = ({
     label,
+    id,
     className = '',
     inputSize = 'default',
     plaintext = false,
@@ -21,6 +23,8 @@ const Input = ({
     ...props
 }: InputProps) => {
     const [showPassword, setShowPassword] = useState(false);
+    const generatedId = useId();
+    const inputId = id ?? generatedId;
     const isPassword = type === 'password';
 
     const sizeClasses = {
@@ -39,9 +43,10 @@ const Input = ({
 
     return (
         <div className={cn("w-full", className)}>
-            {label && <label className="block text-sm text-gray-900 dark:text-slate-400 mb-1.5">{label}</label>}
+            {label && <FieldLabel htmlFor={inputId}>{label}</FieldLabel>}
             <div className="relative">
                 <input
+                    id={inputId}
                     type={isPassword && showPassword ? 'text' : type}
                     className={`${baseClasses} ${!plaintext ? sizeClasses : ''} ${leadingIcon ? 'pl-10' : ''}`}
                     {...props}

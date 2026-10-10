@@ -77,7 +77,7 @@ export const NoData = ({
     className?: string;
 }) => (
     <Tr>
-        <td colSpan={colSpan} className={cn(`px-6 py-4 text-center text-sm`, className)}>
+        <td colSpan={colSpan} className={cn(`px-6 py-14 text-center text-sm`, className)}>
             {children ?? "No item found"}
         </td>
     </Tr>

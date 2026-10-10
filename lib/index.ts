@@ -52,6 +52,7 @@ export { default as ToastBody } from './components/shared/toast/toast-body'
 export type { ToastPosition } from './components/shared/toast/types'
 
 // export input
+export { default as FieldLabel } from './components/shared/field-label'
 export { default as Input } from './components/shared/input/input'
 export { default as SearchInput } from './components/shared/input/search-input'
 export { default as ImageInput } from './components/shared/input/image-input'

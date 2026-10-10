@@ -234,9 +234,10 @@
 import { Check, ChevronDown, Plus, X } from "lucide-react";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { InputSize } from "./types";
+import FieldLabel from "../field-label";
 
 interface Option {
-    value: string;
+    value: any;
     label: string;
     group?: string;
 }
@@ -267,13 +268,13 @@ interface ChoiceSelectCommonProps {
 type ChoiceSelectProps = ChoiceSelectCommonProps & (
     | {
         multiple: true;
-        value?: string[];
+        value?: any;
         defaultValue?: string[];
         onChange?: (value: string[]) => void;
     }
     | {
         multiple?: false;
-        value?: string;
+        value?: any;
         defaultValue?: string;
         onChange?: (value: string) => void;
     }
@@ -408,9 +409,9 @@ const ChoiceSelect = (props: ChoiceSelectProps) => {
     return (
         <div className={`w-full ${className}`}>
             {label && (
-                <label htmlFor={inputId} className="mb-1.5 block text-sm text-gray-900 dark:text-slate-400">
+                <FieldLabel htmlFor={inputId}>
                     {label}
-                </label>
+                </FieldLabel>
             )}
             <div className="relative" ref={containerRef}>
             <div

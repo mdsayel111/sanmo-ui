@@ -1,13 +1,20 @@
 
+import { useId } from "react";
+import FieldLabel from "../field-label";
+
 interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
 }
 
-const Textarea = ({ label, className = '', ...props }: TextareaProps) => {
+const Textarea = ({ label, id, className = '', ...props }: TextareaProps) => {
+  const generatedId = useId();
+  const textareaId = id ?? generatedId;
+
   return (
     <div className="w-full">
-      {label && <label className="block text-sm text-gray-900 dark:text-slate-400 mb-1.5">{label}</label>}
+      {label && <FieldLabel htmlFor={textareaId}>{label}</FieldLabel>}
       <textarea
+        id={textareaId}
         className={`
           w-full bg-background rounded-sm text-gray-700 dark:text-slate-200 placeholder-slate-500
           focus:outline-none border

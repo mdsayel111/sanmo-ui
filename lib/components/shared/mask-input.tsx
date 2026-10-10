@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useId, useState } from "react";
+import FieldLabel from "./field-label";
 
 type InputSize = 'sm' | 'default' | 'lg';
 
@@ -17,6 +18,7 @@ interface MaskedInputProps
 
 const MaskedInput = ({
     label,
+    id,
     maskType = 'date',
     className = '',
     onChange,
@@ -25,6 +27,8 @@ const MaskedInput = ({
     ...props
 }: MaskedInputProps) => {
     const [value, setValue] = useState('');
+    const generatedId = useId();
+    const inputId = id ?? generatedId;
 
     // Formatting Logic
     const formatValue = (val: string, type: string) => {
@@ -101,8 +105,9 @@ const MaskedInput = ({
 
     return (
         <div className="w-full">
-            {label && <label className={`block font-medium text-slate-400 mb-1.5 ${size === 'sm' ? 'text-xs' : 'text-sm'}`}>{label}</label>}
+            {label && <FieldLabel htmlFor={inputId} className={`font-medium text-slate-400 ${size === 'sm' ? 'text-xs' : 'text-sm'}`}>{label}</FieldLabel>}
             <input
+                id={inputId}
                 type="text"
                 className={`
           w-full bg-background rounded-sm border border-(--border-color) text-gray-900 dark:text-slate-200 dark:placeholder-slate-200 placeholder-gray-800

@@ -23,9 +23,10 @@ export default function DateTimePickers() {
                 <DateTimePicker
                     value={basicDate}
                     onChange={setBasicDate}
+                    label="Date"
                     placeholder="Basic datepicker"
                 />
-                <SourceCode code={`<DateTimePicker placeholder="Basic datepicker" />`} />
+                <SourceCode code={`<DateTimePicker label="Date" placeholder="Basic datepicker" />`} />
             </Section>
 
             {/* 2. Date Time */}
@@ -33,10 +34,11 @@ export default function DateTimePickers() {
                 <DateTimePicker
                     value={dateTime}
                     onChange={setDateTime}
+                    label="Date and time"
                     enableTime
                     placeholder="Date and Time"
                 />
-                <SourceCode code={`<DateTimePicker enableTime placeholder="Date and Time" />`} />
+                <SourceCode code={`<DateTimePicker label="Date and time" enableTime placeholder="Date and Time" />`} />
             </Section>
 
             {/* 3. Time Picker Only (24hr) */}
@@ -44,12 +46,13 @@ export default function DateTimePickers() {
                 <DateTimePicker
                     value={timeOnly}
                     onChange={setTimeOnly}
+                    label="Time"
                     enableTime
                     noCalendar
                     time_24hr
                     placeholder="16:21"
                 />
-                <SourceCode code={`<DateTimePicker enableTime noCalendar time_24hr />`} />
+                <SourceCode code={`<DateTimePicker label="Time" enableTime noCalendar time_24hr />`} />
             </Section>
 
             {/* 4. Time Picker w/ Limits */}
@@ -57,6 +60,7 @@ export default function DateTimePickers() {
                 <DateTimePicker
                     value={limitTime}
                     onChange={setLimitTime}
+                    label="Time range"
                     enableTime
                     noCalendar
                     minTime="16:00"
@@ -64,6 +68,7 @@ export default function DateTimePickers() {
                     placeholder="Limits (4pm - 10pm)"
                 />
                 <SourceCode code={`<DateTimePicker 
+  label="Time range"
   enableTime 
   noCalendar 
   minTime="16:00" 
@@ -77,9 +82,10 @@ export default function DateTimePickers() {
                     mode="range"
                     value={rangeDate}
                     onChange={setRangeDate}
+                    label="Date range"
                     placeholder="2018-10-03 to 2018-10-10"
                 />
-                <SourceCode code={`<DateTimePicker mode="range" placeholder="Select Range..." />`} />
+                <SourceCode code={`<DateTimePicker label="Date range" mode="range" placeholder="Select Range..." />`} />
             </Section>
 
             {/* 6. Multiple Dates */}
@@ -88,9 +94,10 @@ export default function DateTimePickers() {
                     mode="multiple"
                     value={multiDate}
                     onChange={setMultiDate}
+                    label="Multiple dates"
                     placeholder="Multiple dates"
                 />
-                <SourceCode code={`<DateTimePicker mode="multiple" placeholder="Multiple dates" />`} />
+                <SourceCode code={`<DateTimePicker label="Multiple dates" mode="multiple" placeholder="Multiple dates" />`} />
             </Section>
 
             {/* 7. Constraints / Disabling */}

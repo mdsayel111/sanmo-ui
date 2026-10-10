@@ -1,6 +1,7 @@
 import { ImagePlus, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { cn } from "../../utils/cn";
+import FieldLabel from "../field-label";
 
 export type ImageInputValue = File | string | null;
 
@@ -70,9 +71,9 @@ const ImageInput = ({
     return (
         <div className="w-full">
             {label && (
-                <label id={labelId} className="mb-1.5 block text-sm text-gray-900 dark:text-slate-400">
+                <FieldLabel id={labelId}>
                     {label}
-                </label>
+                </FieldLabel>
             )}
             <input
                 ref={inputRef}

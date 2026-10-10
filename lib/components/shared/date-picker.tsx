@@ -5,7 +5,8 @@ import {
     ChevronUp,
     Clock
 } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import FieldLabel from './field-label';
 
 const MONTH_NAMES = [
     "January", "February", "March", "April", "May", "June",
@@ -73,6 +74,7 @@ const isSameDate = (d1: Date | null, d2: Date | null) => {
 interface DateTimePickerProps {
     value?: Date | Date[];
     onChange?: (date: Date | Date[]) => void;
+    label?: string;
     placeholder?: string;
     enableTime?: boolean;
     noCalendar?: boolean; // Time picker only
@@ -89,6 +91,7 @@ interface DateTimePickerProps {
 const DateTimePicker = ({
     value,
     onChange,
+    label,
     placeholder = "Select Date...",
     enableTime = false,
     noCalendar = false,
@@ -103,6 +106,7 @@ const DateTimePicker = ({
 }: DateTimePickerProps) => {
     // --- State ---
     const [isOpen, setIsOpen] = useState(false);
+    const inputId = useId();
 
     // Internal selection state
     const initialSelection = Array.isArray(value) ? value : (value ? [value] : []);
@@ -344,12 +348,19 @@ const DateTimePicker = ({
 
     return (
         <div className={`relative w-full ${className}`} ref={containerRef}>
+            {label && (
+                <FieldLabel htmlFor={inputId}>
+                    {label}
+                </FieldLabel>
+            )}
+
             {/* Input Trigger */}
             <div
                 className="relative cursor-pointer group"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <input
+                    id={inputId}
                     type="text"
                     readOnly
                     placeholder={placeholder}

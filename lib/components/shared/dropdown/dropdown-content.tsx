@@ -37,7 +37,7 @@ export default function DropdownContent({ children, className }: { children: Rea
                 width: 'max-content',
                 ...menuStyle
             }}
-            className={cn("z-50 bg-foreground rounded-lg border border-slate-200 dark:border-slate-700 ring-opacity-5 focus:outline-none overflow-x-hidden overflow-y-auto animate-in fade-in zoom-in-95 duration-150 ease-out", getMenuPosition(), className)}
+            className={cn("z-50 p-1 bg-foreground rounded-md border border-slate-200 dark:border-slate-700 ring-opacity-5 focus:outline-none overflow-x-hidden overflow-y-auto animate-in fade-in zoom-in-95 duration-150 ease-out", getMenuPosition(), className)}
         >
             {children}
         </div>,

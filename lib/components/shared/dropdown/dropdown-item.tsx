@@ -25,7 +25,7 @@ const DropdownItem: React.FC<DropdownItemProps> = ({
             }}
             disabled={disabled}
             className={cn(`
-        w-full text-left px-4 py-2 text-sm flex items-center gap-2 hover:bg-background
+        w-full text-left p-2 text-sm rounded-sm flex gap-2 items-center hover:bg-background
         ${active ? 'bg-secondary text-black dark:text-white' : 'dark:text-slate-300 text-gray-700  dark:hover:text-white hover:text-slate-500'}
         ${disabled ? 'opacity-50 cursor-not-allowed hover:bg-transparent' : ''}
         transition-colors duration-150

@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import type Quill from 'quill';
 import { cn } from '../../utils/cn';
+import FieldLabel from '../field-label';
 import './text-editor.css';
 
 interface Props {
@@ -108,9 +109,9 @@ export default function TextEditor({ label, id, value, modelValue, onChange }: P
     return (
         <div className="w-full">
             {label && (
-                <label id={labelId} htmlFor={editorId} className="mb-1.5 block text-sm text-gray-900 dark:text-slate-400">
+                <FieldLabel id={labelId} htmlFor={editorId}>
                     {label}
-                </label>
+                </FieldLabel>
             )}
             <div className={cn('text-editor w-full rounded-2xl')}>
             {editorError ? (
