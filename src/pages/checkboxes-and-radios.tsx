@@ -1,11 +1,24 @@
+import { useState } from "react";
 import Checkbox from "../../lib/components/shared/input/checkbox";
 import Radio from "../../lib/components/shared/input/radio";
 import Switch from "../../lib/components/shared/input/switch";
+import FieldLabel from "../../lib/components/shared/field-label";
+import {
+    Field,
+    FieldContent,
+    FieldDescription,
+    FieldGroup,
+    FieldLegend,
+    FieldSet,
+    FieldTitle,
+} from "../../lib/components/shared/field";
 import Container from "../components/shared/container";
 import Section from "../components/shared/section";
 import SourceCode from "../components/shared/source-code";
 
 export default function FormTogglesDocs() {
+    const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+
     return (
         <Container
             title="Form Toggles"
@@ -128,6 +141,46 @@ export default function FormTogglesDocs() {
 <Switch checked onChange={() => {}} />
 <Switch disabled checked onChange={() => {}} />
 <Switch disabled onChange={() => {}} />`} />
+            </Section>
+
+            {/* 10. Field Composition */}
+            <Section title="Field Composition" description="Combine field layout components with controls and descriptions.">
+                <FieldSet>
+                    <FieldLegend>Notifications</FieldLegend>
+                    <FieldGroup>
+                        <Field orientation="horizontal">
+                            <FieldContent>
+                                <FieldTitle>
+                                    <FieldLabel htmlFor="email-notifications" className="mb-0">
+                                        Email notifications
+                                    </FieldLabel>
+                                </FieldTitle>
+                                <FieldDescription>
+                                    Receive updates about your account by email.
+                                </FieldDescription>
+                            </FieldContent>
+                            <Switch
+                                id="email-notifications"
+                                checked={notificationsEnabled}
+                                onChange={() => setNotificationsEnabled(!notificationsEnabled)}
+                            />
+                        </Field>
+                    </FieldGroup>
+                </FieldSet>
+                <SourceCode code={`<FieldSet>
+  <FieldLegend>Notifications</FieldLegend>
+  <FieldGroup>
+    <Field orientation="horizontal">
+      <FieldContent>
+        <FieldTitle>
+          <FieldLabel htmlFor="email-notifications" className="mb-0">Email notifications</FieldLabel>
+        </FieldTitle>
+        <FieldDescription>Receive updates about your account by email.</FieldDescription>
+      </FieldContent>
+      <Switch id="email-notifications" checked={enabled} onChange={handleChange} />
+    </Field>
+  </FieldGroup>
+</FieldSet>`} />
             </Section>
 
         </Container>

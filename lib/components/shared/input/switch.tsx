@@ -14,13 +14,12 @@ export type Variant =
 
 export type Size = "sm" | "md" | "lg";
 
-interface ToggleProps {
+interface ToggleProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onChange" | "type" | "role"> {
   checked: boolean;
   onChange: () => void;
   variant?: Variant;
   size?: Size;
-  disabled?: boolean;
-  className?: string;
 }
 
 /* ---------------- Component ---------------- */
@@ -31,6 +30,7 @@ const Switch: React.FC<ToggleProps> = ({
   size = "md",
   disabled = false,
   className = "",
+  ...props
 }) => {
   const baseClasses =
     "relative inline-flex items-center rounded-full focus:outline-none";
@@ -73,9 +73,12 @@ const Switch: React.FC<ToggleProps> = ({
 
   return (
     <button
+      {...props}
       type="button"
       role="switch"
       aria-checked={checked}
+      data-state={checked ? "checked" : "unchecked"}
+      data-variant={variant}
       disabled={disabled}
       onClick={onChange}
       className={`

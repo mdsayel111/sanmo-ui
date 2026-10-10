@@ -97,6 +97,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
                 {/* Hidden input as peer */}
                 <input
                     type="checkbox"
+                    data-variant={variant}
                     className={`peer absolute opacity-0 ${sizeClasses[size]}`}
                     checked={checked}
                     onChange={onChange}
