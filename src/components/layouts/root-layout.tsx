@@ -173,6 +173,10 @@ const navItemsData: SidebarNavItem[] = [
                 href: '/components/inputs',
             },
             {
+                name: 'Input Value',
+                href: '/components/input-value',
+            },
+            {
                 name: 'Image Input',
                 href: '/components/image-input',
             },

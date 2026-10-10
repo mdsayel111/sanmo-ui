@@ -18,6 +18,7 @@ import Dropdowns from "./pages/dropdowns";
 import Emails from "./pages/email";
 import FileUploaders from "./pages/file-uploaders";
 import Inputs from "./pages/inputs";
+import InputValues from "./pages/input-value";
 import ImageInputs from "./pages/image-input";
 import { Invoice } from "./pages/invoice";
 import MaskInputs from "./pages/mask-inputs";
@@ -110,6 +111,10 @@ const router = createBrowserRouter([
       {
         path: "components/inputs",
         element: <Inputs />,
+      },
+      {
+        path: "components/input-value",
+        element: <InputValues />,
       },
       {
         path: "components/image-input",
