@@ -106,6 +106,9 @@ export default function Pagination({
             "hover:bg-background text-slate-700 dark:text-slate-300",
     };
 
+    const pageChangeButtonClasses =
+        "border bg-foreground text-slate-700 dark:text-slate-300";
+
     const activeClasses = {
         default:
             "bg-secondary border-secondary text-white",
@@ -148,11 +151,11 @@ export default function Pagination({
                         onPageChange?.(currentPage - 1)
                     }
                     className={`
-                        flex items-center justify-center transition-colors
+                        flex items-center justify-center
                         disabled:opacity-50 disabled:pointer-events-none
 
                         ${sizeClasses[size].button}
-                        ${variantClasses[variant]}
+                        ${pageChangeButtonClasses}
                         ${radiusClass}
                     `}
                 >
@@ -169,7 +172,7 @@ export default function Pagination({
                                 onPageChange?.(1)
                             }
                             className={`
-                                transition-colors font-medium
+                                font-medium
 
                                 ${sizeClasses[size].button}
                                 ${variantClasses[variant]}
@@ -211,7 +214,7 @@ export default function Pagination({
                                 onPageChange?.(page)
                             }
                             className={`
-                                transition-colors font-medium
+                                font-medium
 
                                 ${sizeClasses[size].button}
                                 ${radiusClass}
@@ -240,7 +243,7 @@ export default function Pagination({
                                     )
                                 }
                                 className={`
-                                    transition-colors font-medium
+                                    font-medium
 
                                     ${sizeClasses[size].button}
                                     ${variantClasses[variant]}
@@ -257,7 +260,7 @@ export default function Pagination({
                                     )
                                 }
                                 className={`
-                                    transition-colors font-medium
+                                    font-medium
 
                                     ${sizeClasses[size].button}
                                     ${variantClasses[variant]}
@@ -280,11 +283,11 @@ export default function Pagination({
                         )
                     }
                     className={`
-                        flex items-center justify-center transition-colors
+                        flex items-center justify-center
                         disabled:opacity-50 disabled:pointer-events-none
 
                         ${sizeClasses[size].button}
-                        ${variantClasses[variant]}
+                        ${pageChangeButtonClasses}
                         ${radiusClass}
                     `}
                 >
