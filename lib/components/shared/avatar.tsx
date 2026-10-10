@@ -35,7 +35,7 @@ const Avatar = ({
 
   return (
     <img 
-      className={`object-cover ${sizeClasses} ${shapeClasses} ${thumbnailClasses} ${className}`}
+      className={`object-cover border ${sizeClasses} ${shapeClasses} ${thumbnailClasses} ${className}`}
       {...props}
     />
   );
